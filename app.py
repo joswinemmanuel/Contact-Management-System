@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, redirect, render_template, request, jsonify
 from model import db, Contact, init_db
 
 app = Flask(__name__)
@@ -22,7 +22,7 @@ def add_contact():
     with app.app_context():
         db.session.add(new_contact)
         db.session.commit()
-    return render_template("index.html", contacts=db.session.execute(db.select(Contact)).scalars().all())
+    return redirect("/")
 
 # REST API Routes
 
