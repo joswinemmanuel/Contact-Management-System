@@ -1,23 +1,9 @@
 from flask import Flask, render_template, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
+from model import db, Contact, init_db
 
 app = Flask(__name__)
 
-# SQLite Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///contacts.db'
-db = SQLAlchemy(app)
-
-class Contact(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    email = db.Column(db.String(120), nullable=False)
-    phone = db.Column(db.String(20), nullable=False)
-
-    def __repr__(self):
-        return f'<Contact {self.name}>'
-
-with app.app_context():
-    db.create_all()
+init_db(app)
 
 # MVC Routes
 
