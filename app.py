@@ -1,17 +1,30 @@
 from flask import Flask, render_template, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# Storing data internally in a list rather than a database to test our Routes
-contacts = [
-    {"id": 1, "name": "Alice", "email": "alice@example.com", "phone": "123-456-7890"},
-    {"id": 2, "name": "Bob", "email": "bob@example.com", "phone": "987-654-3210"},
-]
+# SQLite Database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///contacts.db'
+db = SQLAlchemy(app)
+
+class Contact(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    phone = db.Column(db.String(20), nullable=False)
+
+    def __repr__(self):
+        return f'<Contact {self.name}>'
+
+with app.app_context():
+    db.create_all()
 
 # MVC Routes
 
 @app.route("/")
 def index():
+    with app.app_context():
+        contacts = db.session.execute(db.select(Contact)).scalars().all()
     return render_template("index.html", contacts=contacts)
 
 @app.route("/add", methods=["POST"])
@@ -19,58 +32,69 @@ def add_contact():
     name = request.form["name"]
     email = request.form["email"]
     phone = request.form["phone"]
-    new_id = len(contacts) + 1
-    contacts.append({"id": new_id, "name": name, "email": email, "phone": phone})
-    return render_template("index.html", contacts=contacts)
+    new_contact = Contact(name=name, email=email, phone=phone)
+    with app.app_context():
+        db.session.add(new_contact)
+        db.session.commit()
+    return render_template("index.html", contacts=db.session.execute(db.select(Contact)).scalars().all())
 
 # REST API Routes
 
 @app.route("/api/contacts", methods=["GET"])
 def get_contacts():
-    return jsonify(contacts)
+    with app.app_context():
+        contacts = db.session.execute(db.select(Contact)).scalars().all()
+        if contacts:
+            return jsonify([{"id": c.id, "name": c.name, "email": c.email, "phone": c.phone} for c in contacts])
+        else:
+            return jsonify({"message": "No contacts available"}), 404
 
 @app.route("/api/contacts/<int:contact_id>", methods=["GET"])
 def get_contact(contact_id):
-    contact = next((c for c in contacts if c["id"] == contact_id), None)
-    if contact:
-        return jsonify(contact)
-    else:
-        return jsonify({"message": "Contact not found"}), 404
+    with app.app_context():
+        contact = db.session.get(Contact, contact_id)
+        if contact:
+            return jsonify({"id": contact.id, "name": contact.name, "email": contact.email, "phone": contact.phone})
+        else:
+            return jsonify({"message": "Contact not found"}), 404
 
 @app.route("/api/contacts", methods=["POST"])
 def create_contact():
     data = request.get_json()
     if not data or "name" not in data or "email" not in data or "phone" not in data:
         return jsonify({"message": "Invalid data"}), 400
-    new_id = len(contacts) + 1
-    new_contact = {
-        "id": new_id,
-        "name": data["name"],
-        "email": data["email"],
-        "phone": data["phone"],
-    }
-    contacts.append(new_contact)
-    return jsonify(new_contact), 201
+    new_contact = Contact(name=data["name"], email=data["email"], phone=data["phone"])
+    with app.app_context():
+        db.session.add(new_contact)
+        db.session.commit()
+        return jsonify({"id": new_contact.id, "name": new_contact.name, "email": new_contact.email, "phone": new_contact.phone}), 201
 
 @app.route("/api/contacts/<int:contact_id>", methods=["PUT"])
 def update_contact(contact_id):
-    contact = next((c for c in contacts if c["id"] == contact_id), None)
-    if not contact:
-        return jsonify({"message": "Contact not found"}), 404
-    data = request.get_json()
-    if not data or "name" not in data or "email" not in data or "phone" not in data:
-        return jsonify({"message": "Invalid data"}), 400
+    with app.app_context():
+        contact = db.session.get(Contact, contact_id)
+        if not contact:
+            return jsonify({"message": "Contact not found"}), 404
+        data = request.get_json()
+        if not data or "name" not in data or "email" not in data or "phone" not in data:
+            return jsonify({"message": "Invalid data"}), 400
 
-    contact["name"] = data["name"]
-    contact["email"] = data["email"]
-    contact["phone"] = data["phone"]
-    return jsonify(contact)
+        contact.name = data["name"]
+        contact.email = data["email"]
+        contact.phone = data["phone"]
+        db.session.commit()
+        return jsonify({"id": contact.id, "name": contact.name, "email": contact.email, "phone": contact.phone})
 
 @app.route("/api/contacts/<int:contact_id>", methods=["DELETE"])
 def delete_contact(contact_id):
-    global contacts
-    contacts = [c for c in contacts if c["id"] != contact_id]
-    return jsonify({"message": "Contact deleted"})
+    with app.app_context():
+        contact = db.session.get(Contact, contact_id)
+        if contact:
+            db.session.delete(contact)
+            db.session.commit()
+            return jsonify({"message": "Contact deleted"})
+        else:
+            return jsonify({"message": "Contact not found"}), 404
 
 if __name__ == "__main__":
     app.run(debug=True)

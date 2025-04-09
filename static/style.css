@@ -83,6 +83,10 @@ input[type="email"] {
     opacity: 0.9;
 }
 
+p {
+    text-align: center;
+}
+
 .contact-items {
     list-style: none;
     padding: 0;
@@ -102,16 +106,13 @@ input[type="email"] {
 }
 
 .contact-name {
-    font-weight: bold;
     flex-grow: 1;
 }
 
 .contact-email {
-    color: #555;
     flex-grow: 1;
 }
 
 .contact-phone {
-    color: #777;
-
+    color: rgb(51, 51, 51)
 }

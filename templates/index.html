@@ -54,6 +54,11 @@
         <h2>Contact List</h2>
         {% if contacts %}
         <ul class="contact-items">
+          <li class="contact-item">
+            <span class="contact-name"><strong>Name</strong></span>
+            <span class="contact-email"><strong>Age</strong></span>
+            <span class="contact-phone"><strong>Number</strong></span>
+          </li>
           {% for contact in contacts %}
           <li class="contact-item">
             <span class="contact-name">{{ contact.name }}</span>
@@ -63,7 +68,7 @@
           {% endfor %}
         </ul>
         {% else %}
-        <p>No contacts available.</p>
+        <p>No contacts available</p>
         {% endif %}
       </div>
     </div>
