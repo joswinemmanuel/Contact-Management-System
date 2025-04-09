@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Management</title>
+</head>
+<body>
+    <h1>Contacts</h1>
+
+    <form action="/add" method="post">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="phone" placeholder="Phone" required>
+        <button type="submit">Add Contact</button>
+    </form>
+
+    <ul>
+        {% for contact in contacts %}
+            <li>{{ contact.name }} - {{ contact.email }} - {{ contact.phone }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
