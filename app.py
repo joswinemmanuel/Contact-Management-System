@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, redirect, render_template, request, jsonify
 from model import db, Contact, init_db
 
 app = Flask(__name__)
@@ -26,8 +26,16 @@ def add_contact():
     with app.app_context():
         db.session.add(new_contact)
         db.session.commit()
-        contacts = db.session.execute(db.select(Contact)).scalars().all()
-    return render_template("index.html", contacts=contacts)
+    return redirect("/")
+
+@app.route("/delete/<int:contact_id>", methods=["POST"])
+def delete_contact_mvc(contact_id):
+    with app.app_context():
+        contact = db.session.get(Contact, contact_id)
+        if contact:
+            db.session.delete(contact)
+            db.session.commit()
+        return redirect("/")
 
 # REST API Routes
 

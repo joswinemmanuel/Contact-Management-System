@@ -145,3 +145,22 @@ p {
 .contact-phone {
     color: rgb(51, 51, 51)
 }
+
+.contact-actions {
+    color: rgb(51, 51, 51)
+}
+
+.delete-button {
+    background: none;
+    border: none;
+    color: #dc3545;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+}
+
+.delete-button:hover {
+    opacity: 0.8;
+}
