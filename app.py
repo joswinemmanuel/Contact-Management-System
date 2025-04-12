@@ -1,23 +1,75 @@
-from flask import Flask, redirect, render_template, request, jsonify
-from model import db, Contact, init_db
+from flask import Flask, redirect, render_template, request, url_for, jsonify, session
+from model import db, Contact, init_db, User
+from functools import wraps
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = 'your_secret_key'
 init_db(app)
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        with app.app_context():
+            if User.query.filter_by(username=username).first():
+                return render_template('register.html', error='Username already exists')
+
+            new_user = User(username=username)
+            new_user.set_password(password)
+            db.session.add(new_user)
+            db.session.commit()
+            return redirect(url_for('login'))
+
+    return render_template('register.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        with app.app_context():
+            user = User.query.filter_by(username=username).first()
+            if user and user.check_password(password):
+                session['user_id'] = user.id
+                return redirect(url_for('index'))
+            else:
+                return render_template('login.html', error='Invalid username or password')
+
+    return render_template('login.html')
+
+@app.route('/logout')
+@login_required
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('login'))
 
 # MVC Routes
 
 @app.route("/")
+@login_required
 def index():
     with app.app_context():
         contacts = db.session.execute(db.select(Contact)).scalars().all()
     return render_template("index.html", contacts=contacts)
 
 @app.route("/new-contact")
+@login_required
 def new_contact():
     return render_template("add-contact.html")
 
 @app.route("/add", methods=["POST"])
+@login_required
 def add_contact():
     name = request.form["name"]
     email = request.form["email"]
@@ -29,6 +81,7 @@ def add_contact():
     return redirect("/")
 
 @app.route("/delete/<int:contact_id>", methods=["POST"])
+@login_required
 def delete_contact_mvc(contact_id):
     with app.app_context():
         contact = db.session.get(Contact, contact_id)
