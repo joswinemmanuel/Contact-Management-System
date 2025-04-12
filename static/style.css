@@ -164,3 +164,56 @@ p {
 .delete-button:hover {
     opacity: 0.8;
 }
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.auth-form .form-group {
+    margin-bottom: 15px;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"] {
+    width: calc(100% - 12px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.auth-form .button {
+    margin-top: 10px;
+}
+
+.auth-form p {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #555;
+    text-align: center;
+}
+
+.auth-form p a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.auth-form p a:hover {
+    color: #3f9cff;
+}
+
+.error {
+    color: #dc3545;
+    margin-bottom: 10px;
+}
