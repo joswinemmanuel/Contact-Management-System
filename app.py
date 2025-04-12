@@ -19,14 +19,18 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        email = request.form['email']
+        phone = request.form['phone']
 
         with app.app_context():
             if User.query.filter_by(username=username).first():
                 return render_template('register.html', error='Username already exists')
 
-            new_user = User(username=username)
+            new_user = User(username=username, email=email, phone=phone)
             new_user.set_password(password)
+            new_contact = Contact(name=username, email=email, phone=phone)
             db.session.add(new_user)
+            db.session.add(new_contact)
             db.session.commit()
             return redirect(url_for('login'))
 
