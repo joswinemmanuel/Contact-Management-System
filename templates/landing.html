@@ -10,7 +10,8 @@
 
 <body>
     <div class="header">
-        <h1><a href="{{ url_for('landing') }}" Register>CMS</a></h1>
+        <a href="{{ url_for('landing') }}" Register><img src="{{ url_for('static', filename='CMS.ico') }}" alt="My Logo"
+                class="round-logo"></a>
         <div class="auth-buttons">
             <a href="{{ url_for('login') }}" class="auth-button login">Login</a>
             <a href="{{ url_for('register') }}" class="auth-button">Register</a>
@@ -18,7 +19,7 @@
     </div>
 
     <main class="main-content">
-        <h2>Organize Your Contacts Effortlessly</h2>
+        <h2>Contact Management Sysetm</h2>
         <p>Our Contact Management System is designed to help you keep track of all your important connections in one
             central place. Whether you're managing personal contacts or professional relationships, our intuitive
             interface and powerful features will streamline your communication and organization.</p>

@@ -10,7 +10,8 @@
 
 <body>
     <div class="header">
-        <h1><a href="{{ url_for('landing') }}" Register>CMS</a></h1>
+        <a href="{{ url_for('landing') }}" Register><img src="{{ url_for('static', filename='CMS.ico') }}" alt="My Logo"
+            class="round-logo"></a>
         <div class="auth-buttons">
             <a href="{{ url_for('login') }}" class="auth-button login">Login</a>
             <a href="{{ url_for('register') }}" class="auth-button">Register</a>

@@ -1,10 +1,17 @@
-from flask import Flask, redirect, render_template, request, url_for, jsonify, session
+from flask import Flask, redirect, render_template, request, url_for, jsonify, session, send_from_directory
+import os
 from model import db, Contact, init_db, User
 from functools import wraps
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
 init_db(app)
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+        'CMS.ico', mimetype='image/vnd.microsoft.icon')
+
 
 def login_required(f):
     @wraps(f)
