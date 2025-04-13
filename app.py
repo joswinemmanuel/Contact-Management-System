@@ -46,7 +46,7 @@ def login():
             user = User.query.filter_by(username=username).first()
             if user and user.check_password(password):
                 session['user_id'] = user.id
-                return redirect(url_for('index'))
+                return redirect(url_for('contacts'))
             else:
                 return render_template('login.html', error='Invalid username or password')
 
@@ -60,12 +60,18 @@ def logout():
 
 # MVC Routes
 
-@app.route("/")
+@app.route('/')
+def landing():
+    if 'user_id' in session:
+        return redirect(url_for('contacts'))
+    return render_template('landing.html')
+
+@app.route("/contacts")
 @login_required
-def index():
+def contacts():
     with app.app_context():
         contacts = db.session.execute(db.select(Contact)).scalars().all()
-    return render_template("index.html", contacts=contacts)
+    return render_template("contacts.html", contacts=contacts)
 
 @app.route("/new-contact")
 @login_required
@@ -82,7 +88,7 @@ def add_contact():
     with app.app_context():
         db.session.add(new_contact)
         db.session.commit()
-    return redirect("/")
+    return redirect("/contacts")
 
 @app.route("/delete/<int:contact_id>", methods=["POST"])
 @login_required
@@ -92,7 +98,7 @@ def delete_contact_mvc(contact_id):
         if contact:
             db.session.delete(contact)
             db.session.commit()
-        return redirect("/")
+        return redirect("/contacts")
 
 # REST API Routes
 
