@@ -32,6 +32,11 @@ body::-webkit-scrollbar {
     max-width: 600px;
     margin-top: 10px;
     margin-bottom: 10px;
+    transition: box-shadow 0.5s ease;
+}
+
+.container:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 .extra-margin-top {
@@ -60,6 +65,13 @@ h2 {
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0);
+    transition: border 0.5s ease;
+}
+
+.add-contact:hover,
+.contact-list:hover {
+    border: 1px solid #8e8e8e;
 }
 
 .contact-form {
@@ -86,6 +98,12 @@ input[type="email"] {
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 16px;
+    transition: border 0.5s ease;
+}
+
+input[type="text"]:hover,
+input[type="email"]:hover {
+    border: 1px solid #8e8e8e;
 }
 
 .link-button {
@@ -100,11 +118,11 @@ input[type="email"] {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
 .link-button:hover {
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 
@@ -117,7 +135,7 @@ input[type="email"] {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
 .button.primary {
@@ -125,7 +143,7 @@ input[type="email"] {
 }
 
 .button:hover {
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 p {
@@ -207,6 +225,12 @@ p {
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 16px;
+    transition: border 0.5s ease;
+}
+
+.auth-form [type="text"]:hover,
+.auth-form [type="password"]:hover {
+    border: 1px solid #8e8e8e;
 }
 
 .auth-form .button {
@@ -223,6 +247,7 @@ p {
 .auth-form p a {
     color: #007bff;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .auth-form p a:hover {
@@ -246,11 +271,27 @@ p {
     align-items: center;
     border-radius: 50px;
     margin: 10px 5px;
+    transition: box-shadow 0.5s ease;
+}
+
+.header:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 .header h1 {
     margin: 0;
     font-size: 2em;
+}
+
+.header h1 a {
+    color: #007bff;
+    text-shadow: 1px 1px 2px #000000;
+    text-decoration: none;
+    transition: text-shadow 0.5s ease;
+}
+
+.header h1 a:hover {
+    text-shadow: 1px 1px 3px #000000;
 }
 
 .auth-buttons {
@@ -268,7 +309,7 @@ p {
     cursor: pointer;
     text-decoration: none;
     font-size: 1em;
-    transition: background-color 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
 .auth-button.login {
@@ -276,7 +317,7 @@ p {
 }
 
 .auth-button:hover {
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 .main-content {
@@ -313,13 +354,20 @@ p {
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.5s ease;
+}
+
+.feature:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 .feature h3 {
     color: #333;
     margin-top: 0;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .footer {
@@ -332,6 +380,11 @@ p {
     font-size: 0.9em;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
+    transition: box-shadow 0.5s ease;
+}
+
+.footer:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 .footer p {
@@ -341,18 +394,9 @@ p {
 .footer p a {
     color: #007bff;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .footer p a:hover {
-    color: #3f9cff;
-}
-
-.header h1 a {
-    color: #007bff;
-    text-shadow: 1px 1px 2px #000000;
-    text-decoration: none;
-}
-
-.header h1 a:hover {
     color: #3f9cff;
 }
