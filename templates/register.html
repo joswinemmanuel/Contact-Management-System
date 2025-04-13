@@ -1,37 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
-    <div class="container extra-margin-top">
-        <h1>Register</h1>
-        {% if error %}
-        <p class="error">{{ error }}</p>
-        {% endif %}
-        <form method="POST" action="{{ url_for('register') }}" class="auth-form">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" placeholder="Enter Username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter Password" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Enter Email" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone:</label>
-                <input type="text" id="phone" name="phone" placeholder="Enter Phone" required>
-            </div>
-            <button type="submit" class="button primary">Register</button>
-            <p>Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
-        </form>
+    <div class="header">
+        <h1><a href="{{ url_for('landing') }}" Register>CMS</a></h1>
+        <div class="auth-buttons">
+            <a href="{{ url_for('login') }}" class="auth-button login">Login</a>
+            <a href="{{ url_for('register') }}" class="auth-button">Register</a>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <div class="container extra-margin-top extra-margin-bottom">
+            <h1>Register</h1>
+            {% if error %}
+            <p class="error">{{ error }}</p>
+            {% endif %}
+            <form method="POST" action="{{ url_for('register') }}" class="auth-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Enter Username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone" placeholder="Enter Phone" required>
+                </div>
+                <button type="submit" class="button primary">Register</button>
+                <p>Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
+            </form>
+        </div>
     </div>
 </body>
+
 </html>

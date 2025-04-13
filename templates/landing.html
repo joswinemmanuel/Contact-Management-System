@@ -1,78 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Management System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            background-color: #f4f4f4;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .landing-container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            width: 80%;
-            max-width: 600px;
-        }
-
-        h1 {
-            color: #007bff;
-            margin-bottom: 20px;
-        }
-
-        p.lead {
-            font-size: 1.2em;
-            color: #555;
-            margin-bottom: 30px;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .landing-button {
-            background-color: #28a745;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1.1em;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-
-        .landing-button.secondary {
-            background-color: #007bff;
-        }
-
-        .landing-button:hover {
-            opacity: 0.9;
-        }
-    </style>
 </head>
+
 <body>
-    <div class="landing-container">
-        <h1>Welcome to Contact Management System</h1>
-        <p class="lead">Organize and manage your contacts efficiently.</p>
-        <div class="button-group">
-            <a href="{{ url_for('register') }}" class="landing-button secondary">Register</a>
-            <a href="{{ url_for('login') }}" class="landing-button">Login</a>
+    <div class="header">
+        <h1><a href="{{ url_for('landing') }}" Register>CMS</a></h1>
+        <div class="auth-buttons">
+            <a href="{{ url_for('login') }}" class="auth-button login">Login</a>
+            <a href="{{ url_for('register') }}" class="auth-button">Register</a>
         </div>
     </div>
+
+    <main class="main-content">
+        <h2>Organize Your Contacts Effortlessly</h2>
+        <p>Our Contact Management System is designed to help you keep track of all your important connections in one
+            central place. Whether you're managing personal contacts or professional relationships, our intuitive
+            interface and powerful features will streamline your communication and organization.</p>
+
+        <div class="features">
+            <div class="feature">
+                <h3>Easy Contact Adding</h3>
+                <p>Quickly add new contacts with all the essential information, including name, email, phone number, and
+                    more. Our simple form ensures you capture every detail.</p>
+            </div>
+            <div class="feature">
+                <h3>Centralized Organization</h3>
+                <p>Say goodbye to scattered contact information. Keep all your contacts neatly organized and easily
+                    accessible from any device.</p>
+            </div>
+            <div class="feature">
+                <h3>Quick Search and Filtering</h3>
+                <p>Find the contact you need in seconds with our robust search and filtering options. Search by name,
+                    email, or phone number.</p>
+            </div>
+            <div class="feature">
+                <h3>Secure and Reliable</h3>
+                <p>Your data is important. We ensure that your contact information is stored securely and reliably, so
+                    you can access it whenever you need it.</p>
+            </div>
+            <div class="feature">
+                <h3>Accessible Anywhere</h3>
+                <p>Our web-based system allows you to access your contacts from any device with an internet connection.
+                    Stay connected on the go.</p>
+            </div>
+            <div class="feature">
+                <h3>REST API Access</h3>
+                <p>Developers can leverage our REST API to integrate contact data with other applications, enabling
+                    seamless workflows and automation.</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 50px;">This is some extra content to make the page scrollable. Lorem ipsum dolor sit amet,
+            consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>More scrolling content here. Vestibulum id ligula porta felis euismod semper. Donec sed odio dui. Cras mattis
+            consectetur purus sit amet fermentum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis
+            vestibulum.</p>
+        <p>And even more content to ensure scrolling. Maecenas faucibus mollis interdum. Nulla vitae elit libero, a
+            pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Contact Management System</p>
+        <p>Developed with Flask</p>
+        <p>Contact Us : <a href="joswinemmanuel.me">joswinemmanuel.me</a></p>
+    </footer>
 </body>
+
 </html>
