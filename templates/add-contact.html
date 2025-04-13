@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CMS</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
-    />
-  </head>
-  <body>
-    <div class="container extra-margin-top">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+<body>
+  <div class="header">
+    <h1><a href="{{ url_for('landing') }}" Register>CMS</a></h1>
+    <div class="auth-buttons">
+      <a href="{{ url_for('logout') }}" class="auth-button">Logout</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="container extra-margin-top extra-margin-bottom">
       <h1>Contact Management System</h1>
 
       <div class="add-contact">
@@ -18,38 +25,22 @@
         <form action="/add" method="post" class="contact-form">
           <div class="form-group">
             <label for="name">Name:</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Enter Name"
-              required
-            />
+            <input type="text" id="name" name="name" placeholder="Enter Name" required />
           </div>
           <div class="form-group">
             <label for="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter Email"
-              required
-            />
+            <input type="email" id="email" name="email" placeholder="Enter Email" required />
           </div>
           <div class="form-group">
             <label for="phone">Phone:</label>
-            <input
-              type="text"
-              id="phone"
-              name="phone"
-              placeholder="Enter Phone"
-              required
-            />
+            <input type="text" id="phone" name="phone" placeholder="Enter Phone" required />
           </div>
           <button type="submit" class="button primary">Add Contact</button>
         </form>
       </div>
       <a href="/contacts" class="link-button">See Contact List</a>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
