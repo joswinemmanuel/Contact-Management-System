@@ -6,27 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Management System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home" />
 </head>
 
 <body>
     <div class="header">
         <a href="{{ url_for('landing') }}" Register><span class="material-symbols-outlined">
-            home
+                home
             </span></a>
         <div class="auth-buttons">
+            <a href="#home" class="scroll-to-session">Home</a>
+            <a href="#features" class="scroll-to-session">Features</a>
+            <a href="#contact" class="scroll-to-session">Contact</a>
             <a href="{{ url_for('login') }}" class="auth-button login">Login</a>
             <a href="{{ url_for('register') }}" class="auth-button">Register</a>
         </div>
     </div>
 
-    <main class="main-content">
-        <h2>Contact Management Sysetm</h2>
-        <p>Our Contact Management System is designed to help you keep track of all your important connections in one
-            central place. Whether you're managing personal contacts or professional relationships, our intuitive
-            interface and powerful features will streamline your communication and organization.</p>
+    <main id="home" class="main-content">
+        <h2>Contact Management System</h2>
+        <p>Easily manage all your contacts in one place. Whether it's friends, family, or professional connections, our
+            simple and powerful system keeps you organized and connected.</p>
 
-        <h3 class="features-title">Key Features</h3>
+        <img class="landing-image" src="{{ url_for('static', filename='images/slider-dec.png') }}" alt="Mobil">
+
+        <h3 id="features" class="features-title">Key Features</h3>
         <div class="features">
             <div class="feature">
                 <h3>Easy Contact Adding</h3>
@@ -60,7 +65,7 @@
             </div>
         </div>
 
-        <p style="margin-top: 50px;">This is some extra content to make the page scrollable. Lorem ipsum dolor sit amet,
+        <!-- <p style="margin-top: 50px;">This is some extra content to make the page scrollable. Lorem ipsum dolor sit amet,
             consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
             minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
             irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
@@ -69,13 +74,15 @@
             consectetur purus sit amet fermentum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis
             vestibulum.</p>
         <p>And even more content to ensure scrolling. Maecenas faucibus mollis interdum. Nulla vitae elit libero, a
-            pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+            pharetra augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p> -->
     </main>
 
-    <footer class="footer">
-        <p>&copy; 2025 Contact Management System</p>
-        <p>Developed with Flask</p>
-        <p>Contact Us : <a href="joswinemmanuel.me">joswinemmanuel.me</a></p>
+    <footer id="contact" class="footer">
+        <div class="footer-box">
+            <p>&copy; 2025 Contact Management System</p>
+            <p>Developed with Flask</p>
+            <p>Contact Us : <a href="https://joswinemmanuel.me">joswinemmanuel.me</a></p>
+        </div>
     </footer>
 </body>
 

@@ -1,7 +1,10 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: "Edu AU VIC WA NT Arrows", cursive;
     margin: 0;
-    background-color: #f4f4f4;
     color: #333;
     display: flex;
     justify-content: center;
@@ -36,7 +39,7 @@ body::-webkit-scrollbar {
 }
 
 .container:hover {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 }
 
 .extra-margin-top {
@@ -68,7 +71,6 @@ h2 {
     transition: all 0.5s ease;
 }
 
-.add-contact:hover,
 .contact-list:hover {
     border: 1px solid #8e8e8e;
 }
@@ -106,8 +108,8 @@ input[type="password"] {
 input[type="text"]:hover,
 input[type="email"]:hover,
 input[type="password"]:hover {
-    border: 1px solid #007bff;
-    box-shadow: 0px 0px 5px #007bff;
+    border: 1px solid #333;
+    box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.4);
 }
 
 .link-button {
@@ -247,7 +249,8 @@ p {
 /*-------------------------HEADER FOOTER---------------------------*/
 
 .header {
-    background-color: #fff;
+    /* background: linear-gradient(105deg, rgba(91, 104, 235, 1) 0%, rgba(40, 225, 253, 1) 100%); */
+    background-color: white;
     color: white;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     padding: 15px 30px;
@@ -261,7 +264,7 @@ p {
 }
 
 .header:hover {
-    box-shadow: 0 0 10px #007bff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 }
 
 .material-symbols-outlined {
@@ -283,9 +286,23 @@ p {
     opacity: 0.8;
 }
 
+.scroll-to-session {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.scroll-to-session:hover {
+    color: #2b92ff;
+    transform: scale(1.1);
+}
+
 .auth-buttons {
     display: flex;
-    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
 }
 
 .auth-button {
@@ -310,6 +327,17 @@ p {
     transform: scale(1.1);
 }
 
+.landing-image {
+    width: 500px;
+    height: auto;
+    transition: all 0.5s ease;
+    margin: 20px 0px;
+}
+
+.landing-image:hover {
+    transform: scale(1.1);
+}
+
 .main-content {
     padding: 40px;
     text-align: center;
@@ -324,6 +352,7 @@ p {
     color: #007bff;
     font-size: 40px;
     margin-bottom: 20px;
+    margin-top: 0px;
 }
 
 .main-content p {
@@ -335,8 +364,9 @@ p {
 
 .features {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    row-gap: 75px;
+    column-gap: 100px;
     margin-top: 40px;
     text-align: left;
 }
@@ -362,27 +392,42 @@ p {
 }
 
 .feature h3 {
-    color: #333;
+    color: #007bff;
+    font-size: 22px;
     margin-top: 0;
     margin-bottom: 10px;
     text-align: center;
 }
 
 .footer {
-    background-color: #fff;
+    background-image: url(images/footer-bg.png);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 250px;
+    padding-bottom: 100px;
     color: #333;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     text-align: center;
     font-weight: 500;
-    padding: 30px;
-    font-size: 0.9em;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    transition: box-shadow 0.5s ease;
+    font-size: 1.1em;
+    transition: all 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
-.footer:hover {
-    box-shadow: 0 0 20px #007bff;
+.footer-box {
+    background-color: rgba(255, 255, 255, 0.531);
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    transition: all 0.5s ease;
+}
+
+.footer-box:hover {
+    transform: scale(1.1);
 }
 
 .footer p {
@@ -396,5 +441,5 @@ p {
 }
 
 .footer p a:hover {
-    color: #3f9cff;
+    color: #3697ff;
 }
