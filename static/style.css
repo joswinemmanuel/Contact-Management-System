@@ -35,7 +35,7 @@ body::-webkit-scrollbar {
     max-width: 600px;
     margin-top: 10px;
     margin-bottom: 10px;
-    transition: box-shadow 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 .container:hover {
@@ -290,12 +290,12 @@ p {
     text-decoration: none;
     color: #333;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
 }
 
 .scroll-to-session:hover {
     color: #2b92ff;
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 .auth-buttons {
