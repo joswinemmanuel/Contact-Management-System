@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Management System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home" />
 </head>
 
 <body>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
     <div class="header">
         <a href="{{ url_for('landing') }}" Register><span class="material-symbols-outlined">
                 home
@@ -25,42 +30,44 @@
     </div>
 
     <main id="home" class="main-content">
-        <h2>Contact Management System</h2>
-        <p>Easily manage all your contacts in one place. Whether it's friends, family, or professional connections, our
+        <h2 data-aos="fade-up" data-aos-delay="200">Contact Management System</h2>
+        <p data-aos="fade-up" data-aos-delay="300">Easily manage all your contacts in one place. Whether it's friends,
+            family, or professional connections, our
             simple and powerful system keeps you organized and connected.</p>
 
-        <img class="landing-image" src="{{ url_for('static', filename='images/slider-dec.png') }}" alt="Mobil">
+        <img class="landing-image" src="{{ url_for('static', filename='images/slider-dec.png') }}" alt="Mobile">
 
-        <h3 id="features" class="features-title">Key Features</h3>
+        <div id="features" class="features-scroll-target"></div>
+        <h3 data-aos="fade-up" class="features-title">Key Features</h3>
         <div class="features">
             <div class="feature">
-                <h3>Easy Contact Adding</h3>
-                <p>Quickly add new contacts with all the essential information, including name, email, phone number, and
+                <h3 data-aos="fade-up" data-aos-delay="100">Easy Contact Adding</h3>
+                <p data-aos="fade-up" data-aos-delay="200">Quickly add new contacts with all the essential information, including name, email, phone number, and
                     more. Our simple form ensures you capture every detail.</p>
             </div>
             <div class="feature">
-                <h3>Centralized Organization</h3>
-                <p>Say goodbye to scattered contact information. Keep all your contacts neatly organized and easily
+                <h3 data-aos="fade-up" data-aos-delay="100">Centralized Organization</h3>
+                <p data-aos="fade-up" data-aos-delay="200">Say goodbye to scattered contact information. Keep all your contacts neatly organized and easily
                     accessible from any device.</p>
             </div>
             <div class="feature">
-                <h3>Quick Search and Filtering</h3>
-                <p>Find the contact you need in seconds with our robust search and filtering options. Search by name,
+                <h3 data-aos="fade-up" data-aos-delay="100">Quick Search and Filtering</h3>
+                <p data-aos="fade-up" data-aos-delay="200">Find the contact you need in seconds with our robust search and filtering options. Search by name,
                     email, or phone number.</p>
             </div>
             <div class="feature">
-                <h3>Secure and Reliable</h3>
-                <p>Your data is important. We ensure that your contact information is stored securely and reliably, so
+                <h3 data-aos="fade-up" data-aos-delay="100">Secure and Reliable</h3>
+                <p data-aos="fade-up" data-aos-delay="200">Your data is important. We ensure that your contact information is stored securely and reliably, so
                     you can access it whenever you need it.</p>
             </div>
             <div class="feature">
-                <h3>Accessible Anywhere</h3>
-                <p>Our web-based system allows you to access your contacts from any device with an internet connection.
+                <h3 data-aos="fade-up" data-aos-delay="100">Accessible Anywhere</h3>
+                <p data-aos="fade-up" data-aos-delay="200">Our web-based system allows you to access your contacts from any device with an internet connection.
                     Stay connected on the go.</p>
             </div>
             <div class="feature">
-                <h3>REST API Access</h3>
-                <p>Developers can leverage our REST API to integrate contact data with other applications, enabling
+                <h3 data-aos="fade-up" data-aos-delay="100">REST API Access</h3>
+                <p data-aos="fade-up" data-aos-delay="200">Developers can leverage our REST API to integrate contact data with other applications, enabling
                     seamless workflows and automation.</p>
             </div>
         </div>
@@ -79,9 +86,9 @@
 
     <footer id="contact" class="footer">
         <div class="footer-box">
-            <p>&copy; 2025 Contact Management System</p>
-            <p>Developed with Flask</p>
-            <p>Contact Us : <a href="https://joswinemmanuel.me">joswinemmanuel.me</a></p>
+            <p data-aos="fade-up" data-aos-delay="100">&copy; 2025 Contact Management System</p>
+            <p data-aos="fade-up" data-aos-delay="200">Developed with Flask</p>
+            <p data-aos="fade-up" data-aos-delay="300">Contact Us : <a href="https://joswinemmanuel.me">joswinemmanuel.me</a></p>
         </div>
     </footer>
 </body>
