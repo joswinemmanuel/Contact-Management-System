@@ -35,9 +35,7 @@ def register():
 
             new_user = User(username=username, email=email, phone=phone)
             new_user.set_password(password)
-            new_contact = Contact(name=username, email=email, phone=phone)
             db.session.add(new_user)
-            db.session.add(new_contact)
             db.session.commit()
             return redirect(url_for('login'))
 
@@ -77,7 +75,7 @@ def landing():
 @login_required
 def contacts():
     with app.app_context():
-        contacts = db.session.execute(db.select(Contact)).scalars().all()
+        contacts = db.session.execute(db.select(Contact).filter_by(created_by_user_id=session['user_id'])).scalars().all()
     return render_template("contacts.html", contacts=contacts)
 
 @app.route("/new-contact")
@@ -91,7 +89,8 @@ def add_contact():
     name = request.form["name"]
     email = request.form["email"]
     phone = request.form["phone"]
-    new_contact = Contact(name=name, email=email, phone=phone)
+    created_by_user_id = session['user_id']
+    new_contact = Contact(name=name, email=email, phone=phone, created_by_user_id=created_by_user_id)
     with app.app_context():
         db.session.add(new_contact)
         db.session.commit()
@@ -102,7 +101,7 @@ def add_contact():
 def delete_contact_mvc(contact_id):
     with app.app_context():
         contact = db.session.get(Contact, contact_id)
-        if contact:
+        if contact and contact.created_by_user_id == session['user_id']:
             db.session.delete(contact)
             db.session.commit()
         return redirect("/contacts")
