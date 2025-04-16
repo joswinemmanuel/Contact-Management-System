@@ -2,6 +2,7 @@ from flask import Flask, redirect, render_template, request, url_for, jsonify, s
 import os
 from model import db, Contact, init_db, User
 from functools import wraps
+from sqlalchemy import or_
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -20,6 +21,8 @@ def login_required(f):
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return decorated_function
+
+# MVC Routes
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -63,8 +66,6 @@ def logout():
     session.pop('user_id', None)
     return redirect(url_for('landing'))
 
-# MVC Routes
-
 @app.route('/')
 def landing():
     if 'user_id' in session:
@@ -77,6 +78,27 @@ def contacts():
     with app.app_context():
         contacts = db.session.execute(db.select(Contact).filter_by(created_by_user_id=session['user_id'])).scalars().all()
     return render_template("contacts.html", contacts=contacts)
+
+@app.route("/search", methods=["GET"])
+@login_required
+def search_contacts():
+    query = request.args.get("query")
+    if query:
+        search_term = f"%{query}%"
+        if len(search_term) == 3:
+            search_term = search_term[1:]
+        with app.app_context():
+            results = db.session.execute(db.select(Contact).filter(
+                Contact.created_by_user_id == session['user_id'],
+                or_(
+                    Contact.name.like(search_term),
+                    Contact.email.like(search_term),
+                    Contact.phone.like(search_term)
+                )
+            )).scalars().all()
+        return render_template("contacts.html", contacts=results)
+    else:
+        return redirect(url_for('contacts'))
 
 @app.route("/new-contact")
 @login_required

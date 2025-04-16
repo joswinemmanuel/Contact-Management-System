@@ -32,6 +32,7 @@ class User(db.Model):
         return f'<User {self.username}>'
     
 # SQLite Database
+
 def init_db(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///contacts.db'
     db.init_app(app)

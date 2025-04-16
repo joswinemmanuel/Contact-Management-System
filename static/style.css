@@ -102,13 +102,13 @@ input[type="password"] {
     font-family: "Edu AU VIC WA NT Arrows", cursive;
     font-size: 16px;
     outline: none;
-    transition: all 0.5s ease;
+    transition: all 0.4s ease;
 }
 
 input[type="text"]:hover,
 input[type="email"]:hover,
 input[type="password"]:hover {
-    border: 1px solid #333;
+    /* border: 1px solid #333; */
     box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.4);
 }
 
@@ -442,4 +442,45 @@ p {
 
 .footer p a:hover {
     color: #3697ff;
+}
+
+
+/*********************************Search Feature*****************************************/
+
+.search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-bar .form-style {
+    display: flex;
+    flex-grow: 1;
+    gap: 10px;
+}
+
+.search-bar input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex-grow: 1;
+    font-size: 1em;
+}
+
+.search-bar button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: "Edu AU VIC WA NT Arrows", cursive;
+    transition: all 0.5s ease;
+}
+
+.search-bar button:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
 }

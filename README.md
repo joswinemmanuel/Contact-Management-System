@@ -1,1 +1,1 @@
-# Simple REST API and MVC application using Flask
+# Simple REST API and MVC Application using Flask
