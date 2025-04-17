@@ -18,9 +18,16 @@ class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    password_hash = db.Column(db.String(128), nullable=False)
+    first_name = db.Column(db.String(80))
+    last_name = db.Column(db.String(80))
     email = db.Column(db.String(120), nullable=False)
-    phone = db.Column(db.String(20), nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
+    date_of_birth = db.Column(db.Date)
+    gender = db.Column(db.String(20))
+    phone_numbers = db.Column(db.Text)
+    # phone = db.Column(db.String(20), nullable=False)
+    address = db.Column(db.Text)
+    profile_picture = db.Column(db.String(200))
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

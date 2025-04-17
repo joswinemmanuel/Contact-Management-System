@@ -3,10 +3,17 @@ import os
 from model import db, Contact, init_db, User
 from functools import wraps
 from sqlalchemy import or_
+from datetime import datetime
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
 init_db(app)
+app.config['UPLOAD_FOLDER'] = 'static/profile_pictures'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/favicon.ico')
 def favicon():
@@ -28,16 +35,43 @@ def login_required(f):
 def register():
     if request.method == 'POST':
         username = request.form['username']
-        password = request.form['password']
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
         email = request.form['email']
-        phone = request.form['phone']
-
+        password = request.form['password']
+        confirm_password = request.form['confirm_password']
+        date_of_birth = request.form.get('date_of_birth')
+        gender = request.form.get('gender')
+        phone_number = request.form['phone_number']
+        address = request.form.get('address')
+        profile_picture = request.files.get('profile_picture')
+            
         with app.app_context():
             if User.query.filter_by(username=username).first():
                 return render_template('register.html', error='Username already exists')
+            if User.query.filter_by(email=email).first():
+                return render_template('register.html', error='Email address already exists')
+            if password != confirm_password:
+                return render_template('register.html', error='Passwords do not match')
 
-            new_user = User(username=username, email=email, phone=phone)
+            new_user = User(
+                username=username,
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                date_of_birth=datetime.strptime(date_of_birth, '%Y-%m-%d').date() if date_of_birth else None,
+                gender=gender,
+                phone_numbers=phone_number,
+                address=address
+            )
             new_user.set_password(password)
+            print(profile_picture)
+            if profile_picture and allowed_file(profile_picture.filename):
+                print(allowed_file(profile_picture.filename))
+                filename = secure_filename(profile_picture.filename)
+                print(filename)
+                profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                new_user.profile_picture = filename
             db.session.add(new_user)
             db.session.commit()
             return redirect(url_for('login'))
