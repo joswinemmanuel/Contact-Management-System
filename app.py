@@ -31,6 +31,12 @@ def login_required(f):
 
 # MVC Routes
 
+@app.route('/')
+def landing():
+    if 'user_id' in session:
+        return redirect(url_for('contacts'))
+    return render_template('landing.html')
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -65,11 +71,8 @@ def register():
                 address=address
             )
             new_user.set_password(password)
-            print(profile_picture)
             if profile_picture and allowed_file(profile_picture.filename):
-                print(allowed_file(profile_picture.filename))
                 filename = secure_filename(profile_picture.filename)
-                print(filename)
                 profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 new_user.profile_picture = filename
             db.session.add(new_user)
@@ -77,6 +80,20 @@ def register():
             return redirect(url_for('login'))
 
     return render_template('register.html')
+
+
+@app.route('/test', methods=['GET', 'POST'])
+def test():
+    if request.method == 'POST':
+        profile_picture = request.files.get('profile_picture')               
+        print(profile_picture)
+        if profile_picture and allowed_file(profile_picture.filename):
+            print(allowed_file(profile_picture.filename))
+            filename = secure_filename(profile_picture.filename)
+            print(filename)            
+        return redirect(url_for('test'))
+    return render_template('test.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -99,12 +116,6 @@ def login():
 def logout():
     session.pop('user_id', None)
     return redirect(url_for('landing'))
-
-@app.route('/')
-def landing():
-    if 'user_id' in session:
-        return redirect(url_for('contacts'))
-    return render_template('landing.html')
 
 @app.route("/contacts")
 @login_required

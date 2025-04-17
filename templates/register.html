@@ -27,7 +27,7 @@
             {% if error %}
             <p class="error">{{ error }}</p>
             {% endif %}
-            <form method="POST" action="{{ url_for('register') }}" class="auth-form">
+            <form method="POST" action="{{ url_for('register') }}" class="auth-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" placeholder="Enter Username" required>
