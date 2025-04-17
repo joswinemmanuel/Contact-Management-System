@@ -89,14 +89,7 @@
         </div>
     </div>
 
-    <script>
-        const input = document.getElementById("profile_picture");
-        const fileNameDisplay = document.getElementById("file-name");
-
-        input.addEventListener("change", function () {
-            fileNameDisplay.textContent = this.files[0]?.name || "No file chosen";
-        });
-    </script>
+    <script src="{{ url_for('static', filename='profilePic.js') }}"></script>
 
 </body>
 
