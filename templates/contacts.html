@@ -38,16 +38,22 @@
         {% if contacts %}
         <ul class="contact-items">
           <li class="contact-item">
-            <span class="contact-name"><strong>Name</strong></span>
+            <span class="contact-name"><strong>First Name</strong></span>
+            <span class="contact-name"><strong>Last Name</strong></span>
+            <span class="contact-email"><strong>Address</strong></span>
+            <span class="contact-email"><strong>Company</strong></span>
             <span class="contact-email"><strong>Email</strong></span>
             <span class="contact-phone"><strong>Number</strong></span>
             <span class="contact-actions"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>
           </li>
           {% for contact in contacts %}
           <li class="contact-item">
-            <span class="contact-name">{{ contact.name }}</span>
+            <span class="contact-name">{{ contact.first_name }}</span>
+            <span class="contact-name">{{ contact.last_name }}</span>
+            <span class="contact-email">{{ contact.address }}</span>
+            <span class="contact-email">{{ contact.company }}</span>
             <span class="contact-email">{{ contact.email }}</span>
-            <span class="contact-phone">{{ contact.phone }}</span>
+            <span class="contact-phone">{{ contact.phone_number }}</span>
             <span class="contact-actions">
               <form action="/delete/{{ contact.id }}" method="post" style="display: inline">
                 <button type="submit" class="delete-button">✖</button>

@@ -6,13 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Add Contacts</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home" />
 </head>
 
 <body>
   <div class="header">
     <a href="{{ url_for('landing') }}" Register><span class="material-symbols-outlined">
-      home
+        home
       </span></a>
     <div class="auth-buttons">
       <a href="{{ url_for('logout') }}" class="auth-button">Logout</a>
@@ -27,16 +28,28 @@
         <h2>Add New Contact</h2>
         <form action="/add" method="post" class="contact-form">
           <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Enter Name" required />
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" placeholder="Enter First Name" required>
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" placeholder="Enter Last Name" required>
+          </div>
+          <div class="form-group">
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" placeholder="Enter Address" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="company">Company:</label>
+            <input type="text" id="company" name="company" placeholder="Enter Company" required>
           </div>
           <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" placeholder="Enter Email" required />
           </div>
           <div class="form-group">
-            <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" placeholder="Enter Phone" required />
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone_number" name="phone_number" placeholder="Enter Phone Number" required>
           </div>
           <button type="submit" class="button primary">Add Contact</button>
         </form>

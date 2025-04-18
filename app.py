@@ -67,7 +67,7 @@ def register():
                 email=email,
                 date_of_birth=datetime.strptime(date_of_birth, '%Y-%m-%d').date() if date_of_birth else None,
                 gender=gender,
-                phone_numbers=phone_number,
+                phone_number=phone_number,
                 address=address
             )
             new_user.set_password(password)
@@ -136,9 +136,9 @@ def search_contacts():
             results = db.session.execute(db.select(Contact).filter(
                 Contact.created_by_user_id == session['user_id'],
                 or_(
-                    Contact.name.like(search_term),
+                    Contact.first_name.like(search_term),
                     Contact.email.like(search_term),
-                    Contact.phone.like(search_term)
+                    Contact.phone_number.like(search_term)
                 )
             )).scalars().all()
         return render_template("contacts.html", contacts=results)
@@ -153,11 +153,22 @@ def new_contact():
 @app.route("/add", methods=["POST"])
 @login_required
 def add_contact():
-    name = request.form["name"]
-    email = request.form["email"]
-    phone = request.form["phone"]
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    address = request.form.get('address')
+    company = request.form.get('company')
+    email = request.form['email']
+    phone_number = request.form['phone_number']
     created_by_user_id = session['user_id']
-    new_contact = Contact(name=name, email=email, phone=phone, created_by_user_id=created_by_user_id)
+    new_contact = Contact(
+        first_name=first_name,
+        last_name=last_name,
+        address=address,
+        company=company,
+        email=email,
+        phone_number=phone_number,
+        created_by_user_id=created_by_user_id
+    )
     with app.app_context():
         db.session.add(new_contact)
         db.session.commit()
