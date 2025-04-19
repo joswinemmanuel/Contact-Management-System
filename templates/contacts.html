@@ -36,34 +36,36 @@
       <div class="contact-list">
         <h2>Contact List</h2>
         {% if contacts %}
-        <ul class="contact-items">
-          <li class="contact-item">
-            <span class="contact-name"><strong>First Name</strong></span>
-            <span class="contact-name"><strong>Last Name</strong></span>
-            <span class="contact-email"><strong>Address</strong></span>
-            <span class="contact-email"><strong>Company</strong></span>
-            <span class="contact-email"><strong>Email</strong></span>
-            <span class="contact-phone"><strong>Number</strong></span>
-            <span class="contact-actions"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>
-          </li>
+        
+        <div class="contact-table">
+          <div class="contact-header">
+            <span>First Name</span>
+            <span>Last Name</span>
+            <span>Address</span>
+            <span>Company</span>
+            <span>Email</span>
+            <span>Phone</span>
+            <span>Actions</span>
+          </div>
           {% for contact in contacts %}
-          <li class="contact-item">
-            <span class="contact-name">{{ contact.first_name }}</span>
-            <span class="contact-name">{{ contact.last_name }}</span>
-            <span class="contact-email">{{ contact.address }}</span>
-            <span class="contact-email">{{ contact.company }}</span>
-            <span class="contact-email">{{ contact.email }}</span>
-            <span class="contact-phone">{{ contact.phone_number }}</span>
-            <span class="contact-actions">
-              <form action="/delete/{{ contact.id }}" method="post" style="display: inline">
+          <div class="contact-row">
+            <span>{{ contact.first_name }}</span>
+            <span>{{ contact.last_name }}</span>
+            <span>{{ contact.address }}</span>
+            <span>{{ contact.company }}</span>
+            <span>{{ contact.email }}</span>
+            <span>{{ contact.phone_number }}</span>
+            <span>
+              <form action="/delete/{{ contact.id }}" method="post" style="display: inline;">
                 <button type="submit" class="delete-button">✖</button>
               </form>
             </span>
-          </li>
+          </div>
           {% endfor %}
-        </ul>
+        </div>
+
         {% else %}
-        <p>No contacts available</p>
+        <p style="width: 1000px;">No contacts available</p>
         {% endif %}
       </div>
     </div>

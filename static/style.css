@@ -197,57 +197,6 @@ p {
     text-align: center;
 }
 
-.contact-items {
-    list-style: none;
-    padding: 0;
-}
-
-.contact-item {
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.contact-item:last-child {
-    border-bottom: none;
-}
-
-.contact-name {
-    flex-grow: 1;
-}
-
-.contact-email {
-    flex-grow: 1;
-}
-
-.contact-phone {
-    color: rgb(51, 51, 51)
-}
-
-.contact-actions {
-    color: rgb(51, 51, 51)
-}
-
-.delete-button {
-    background: none;
-    border: none;
-    color: #dc3545;
-    font-size: 1.2em;
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-    line-height: 1;
-    transition: all 0.3s ease;
-}
-
-.delete-button:hover {
-    opacity: 0.8;
-    transform: scale(1.2);
-}
-
 .auth-form {
     display: flex;
     flex-direction: column;
@@ -525,4 +474,79 @@ p {
 }
 
 
-/*********************************New User Registration*****************************************/
+/*********************************New Contacts List*****************************************/
+
+.contact-list {
+    max-width: 1000px;
+    margin: 2rem auto;
+    margin-top: 10px;
+    padding: 1rem 2rem;
+    background: #fff;
+    border-radius: 12px;
+    font-family: "Edu AU VIC WA NT Arrows", cursive;
+}
+
+.contact-list h2 {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.contact-table {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.5s ease;
+}
+
+.contact-table:hover {
+    box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.4);
+}
+
+.contact-header,
+.contact-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+    padding: 0.8rem;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    transition: all 0.5s ease;
+}
+
+.contact-header {
+    font-weight: bold;
+    background-color: #ffffff;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 2px solid #eee;
+    color: #444;
+}
+
+.contact-row:last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.contact-row:hover {
+    background-color: #d6ecff;
+    box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.4);
+}
+
+.delete-button {
+    background-color: #e60000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.5s ease;
+}
+
+.delete-button:hover {
+    opacity: 0.8;
+    transform: scale(1.2);
+}
