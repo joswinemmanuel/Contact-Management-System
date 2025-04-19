@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    
+
     <div class="header">
         <a href="{{ url_for('landing') }}" Register><span class="material-symbols-outlined">
                 home
@@ -24,10 +24,34 @@
 
     <div class="wrap">
         <div class="container container-login">
-            <h1>Login</h1>
-            {% if error %}
-            <p class="error">{{ error }}</p>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            {% if category=="primary" %}
+            <div class="alert alert-{{ category }}" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close btn-close-{{ category }}" aria-label="Close">✖</button>
+            </div>
             {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% endwith%}
+
+            <h1>Login</h1>
+
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Oops! {{ message }}</strong>
+                <button type="button" class="btn-close btn-close-danger" aria-label="Close">✖</button>
+            </div>
+            {% endfor %}
+
+            <!-- {% if error %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Oops! {{ error }}</strong>
+                <button type="button" class="btn-close btn-close-danger" aria-label="Close">✖</button>
+            </div>
+            {% endif %} -->
             <form method="POST" action="{{ url_for('login') }}" class="auth-form">
                 <div class="form-group">
                     <label for="username">Username:</label>
@@ -42,6 +66,8 @@
             </form>
         </div>
     </div>
+
+    <script src="{{ url_for('static', filename='alertButton.js') }}"></script>
 
 </body>
 

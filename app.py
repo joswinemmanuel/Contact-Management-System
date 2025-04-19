@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, url_for, jsonify, session, send_from_directory
+from flask import Flask, redirect, render_template, request, url_for, jsonify, session, send_from_directory, flash
 import os
 from model import db, Contact, init_db, User
 from functools import wraps
@@ -77,6 +77,7 @@ def register():
                 new_user.profile_picture = filename
             db.session.add(new_user)
             db.session.commit()
+            flash(f"{first_name},  Registration successful", "primary")
             return redirect(url_for('login'))
 
     return render_template('register.html')
@@ -105,17 +106,26 @@ def login():
             user = User.query.filter_by(username=username).first()
             if user and user.check_password(password):
                 session['user_id'] = user.id
+                session['first_name'] = user.first_name
+                session['last_name'] = user.last_name
                 return redirect(url_for('contacts'))
+            elif user:
+                flash("Password is incorrect", "danger")
+                return render_template('login.html', error='Invalid password')
             else:
-                return render_template('login.html', error='Invalid username or password')
+                flash(f"Username doesn't exist", "danger")
+                return render_template('login.html', error='Invalid username')
 
     return render_template('login.html')
 
 @app.route('/logout')
 @login_required
 def logout():
+    for i in session:
+        print(i, session['user_id'], session['first_name'], session['last_name'])
     session.pop('user_id', None)
-    return redirect(url_for('landing'))
+    flash(f"{session['first_name']}, Logged out successfully", "primary")
+    return redirect(url_for('login'))
 
 @app.route("/contacts")
 @login_required
