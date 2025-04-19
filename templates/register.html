@@ -24,16 +24,19 @@
     <div class="wrap">
         <div class="container extra-margin-top extra-margin-bottom">
             <h1>Register</h1>
-            <!-- <div class="alert alert-primary fade" role="alert">
+
+            <!-- <div class="alert alert-primary" role="alert">
                 <strong>Oops! Error</strong>
                 <button type="button" class="btn-close btn-close-primary" aria-label="Close">✖</button>
             </div> -->
+
             {% if error %}
-            <div class="alert alert-danger fade" role="alert">
+            <div class="alert alert-danger" role="alert">
                 <strong>Oops! {{ error }}</strong>
                 <button type="button" class="btn-close btn-close-danger" aria-label="Close">✖</button>
             </div>
             {% endif %}
+
             <form method="POST" action="{{ url_for('register') }}" class="auth-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="username">Username:</label>
