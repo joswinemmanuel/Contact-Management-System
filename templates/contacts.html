@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <div class="header">
+  <div class="header" style="margin-bottom: 20px;">
     <a href="{{ url_for('landing') }}" Register><span class="material-symbols-outlined">
         home
       </span></a>
@@ -21,7 +21,28 @@
   </div>
 
   <div class="wrap">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category=="primary" %}
+    <div class="alert alert-{{ category }} contacts-page" role="alert">
+      <strong>{{ message }}</strong>
+      <button type="button" class="btn-close btn-close-{{ category }}" aria-label="Close">✖</button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith%}
+    <!-- <div class="alert alert-primary contacts-page" role="alert">
+      <strong>{{ "message" }}</strong>
+      <button type="button" class="btn-close btn-close-primary" aria-label="Close">✖</button>
+    </div> -->
+  </div>
+
+
+  <div class="wrap">
     <div class="container extra-margin-top extra-margin-bottom">
+
       <h1>Contact Management System</h1>
 
       <a href="/new-contact" class="link-button">Add New Contact</a>
@@ -33,10 +54,30 @@
         </form>
       </div>
 
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      {% if category=="info" %}
+      <div class="alert alert-primary" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close btn-close-primary" aria-label="Close">✖</button>
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+      {% for message in get_flashed_messages() %}
+      <div class="alert alert-danger" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close btn-close-danger" aria-label="Close">✖</button>
+      </div>
+      {% endfor %}
+
       <div class="contact-list">
         <h2>Contact List</h2>
         {% if contacts %}
-        
+
         <div class="contact-table">
           <div class="contact-header">
             <span>First Name</span>
@@ -70,6 +111,9 @@
       </div>
     </div>
   </div>
+
+  <script src="{{ url_for('static', filename='alertButton.js') }}"></script>
+
 </body>
 
 </html>

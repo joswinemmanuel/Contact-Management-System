@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         setTimeout(() => {
             closeAlert();
-        }, 5000);
+        }, 3000);
     }
 
     const closeButton = alert?.querySelector('.btn-close');

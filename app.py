@@ -108,6 +108,7 @@ def login():
                 session['user_id'] = user.id
                 session['first_name'] = user.first_name
                 session['last_name'] = user.last_name
+                flash(f"{session['first_name']} successfully Logged In", "primary")
                 return redirect(url_for('contacts'))
             elif user:
                 flash("Password is incorrect", "danger")
@@ -121,10 +122,8 @@ def login():
 @app.route('/logout')
 @login_required
 def logout():
-    for i in session:
-        print(i, session['user_id'], session['first_name'], session['last_name'])
     session.pop('user_id', None)
-    flash(f"{session['first_name']}, Logged out successfully", "primary")
+    flash(f"{session['first_name']} successfully Logged out", "primary")
     return redirect(url_for('login'))
 
 @app.route("/contacts")
@@ -151,8 +150,10 @@ def search_contacts():
                     Contact.phone_number.like(search_term)
                 )
             )).scalars().all()
+        flash("Search results", "info")
         return render_template("contacts.html", contacts=results)
     else:
+        flash("All contacts", "info")
         return redirect(url_for('contacts'))
 
 @app.route("/new-contact")
@@ -182,6 +183,7 @@ def add_contact():
     with app.app_context():
         db.session.add(new_contact)
         db.session.commit()
+    flash("New contact added", "info")
     return redirect("/contacts")
 
 @app.route("/delete/<int:contact_id>", methods=["POST"])
@@ -190,8 +192,10 @@ def delete_contact_mvc(contact_id):
     with app.app_context():
         contact = db.session.get(Contact, contact_id)
         if contact and contact.created_by_user_id == session['user_id']:
+            flash
             db.session.delete(contact)
             db.session.commit()
+        flash("Contact deleted")
         return redirect("/contacts")
 
 # REST API Routes

@@ -44,7 +44,7 @@ body::-webkit-scrollbar {
 }
 
 .extra-margin-top {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .extra-margin-bottom {
@@ -565,7 +565,18 @@ p {
     margin: 0;
     visibility: hidden;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: all 0.5s ease;
+}
+
+.alert:hover {
+    box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.4);
+}
+
+.alert.contacts-page {
+    width: 50%;
 }
 
 .alert.show {
