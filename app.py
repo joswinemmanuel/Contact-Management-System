@@ -77,7 +77,7 @@ def register():
                 new_user.profile_picture = filename
             db.session.add(new_user)
             db.session.commit()
-            flash(f"{first_name},  Registration successful", "primary")
+            flash(f"Welcome { session['first_name'] }! You have successfully registered", "primary")
             return redirect(url_for('login'))
 
     return render_template('register.html')
@@ -130,7 +130,11 @@ def logout():
 @login_required
 def contacts():
     with app.app_context():
-        contacts = db.session.execute(db.select(Contact).filter_by(created_by_user_id=session['user_id'])).scalars().all()
+        contacts = db.session.execute(
+            db.select(Contact)
+            .filter_by(created_by_user_id=session['user_id'])
+            .order_by(Contact.first_name, Contact.last_name)
+        ).scalars().all()
     return render_template("contacts.html", contacts=contacts)
 
 @app.route("/search", methods=["GET"])
