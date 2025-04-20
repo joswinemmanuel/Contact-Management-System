@@ -96,22 +96,35 @@
             <span>{{ contact.company }}</span>
             <span>{{ contact.email }}</span>
             <span>{{ contact.phone_number }}</span>
-            <!-- <span>
-              <a href="/edit/{{ contact.id }}">
-                <button type="submit" class="delete-button">✎</button>
-              </a>
-              <form action="/delete/{{ contact.id }}" method="post" style="display: inline;">
-                <button type="submit" class="delete-button">✖</button>
-              </form>
-            </span> -->
+
             <span class="action-buttons">
               <form action="/edit/{{ contact.id }}" method="get" style="display: inline;">
                 <button type="submit" class="icon-button edit-button">✎</button>
               </form>
-              <form action="/delete/{{ contact.id }}" method="post" style="display: inline;">
-                <button type="submit" class="icon-button delete-button">✖</button>
-              </form>
+              
+              <button type="submit" class="icon-button delete-button"
+                onclick="openDeleteModal('{{ contact.id }}', '{{ contact.first_name }} {{ contact.last_name }}')">
+                ✖
+              </button>
             </span>
+
+            <div id="deleteModal-{{ contact.id }}" class="modal">
+              <div class="modal-content">
+                <span class="close-button" onclick="closeDeleteModal('{{ contact.id }}')">&times;</span>
+                <p style="font-size: large; margin-bottom: 30px;"><strong>Are you sure you want to delete contact "{{
+                    contact.first_name }}
+                    {{ contact.last_name
+                    }}"?</strong></p>
+                <div class="modal-buttons">
+                  <form action="/delete/{{ contact.id }}" method="post" style="display:inline;">
+                    <button type="submit" class="yes-button">Yes, Delete</button>
+                  </form>
+                  <button type="button" class="no-button" onclick="closeDeleteModal('{{ contact.id }}')">No,
+                    Cancel</button>
+                </div>
+              </div>
+            </div>
+
           </div>
           {% endfor %}
         </div>
@@ -122,6 +135,8 @@
       </div>
     </div>
   </div>
+
+  <script src="{{ url_for('static', filename='deleteButton.js') }}"></script>
 
   <script src="{{ url_for('static', filename='alertButton.js') }}"></script>
 

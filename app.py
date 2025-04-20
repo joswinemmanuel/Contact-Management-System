@@ -108,7 +108,7 @@ def login():
                 session['user_id'] = user.id
                 session['first_name'] = user.first_name
                 session['last_name'] = user.last_name
-                flash(f"Welcome back, { session['first_name'] }! You have successfully logged in", "primary")
+                flash(f"Welcome, { session['first_name'] }! You have successfully logged in", "primary")
                 return redirect(url_for('contacts'))
             elif user:
                 flash("Password is incorrect", "danger")
