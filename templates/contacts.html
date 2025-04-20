@@ -96,9 +96,20 @@
             <span>{{ contact.company }}</span>
             <span>{{ contact.email }}</span>
             <span>{{ contact.phone_number }}</span>
-            <span>
+            <!-- <span>
+              <a href="/edit/{{ contact.id }}">
+                <button type="submit" class="delete-button">✎</button>
+              </a>
               <form action="/delete/{{ contact.id }}" method="post" style="display: inline;">
                 <button type="submit" class="delete-button">✖</button>
+              </form>
+            </span> -->
+            <span class="action-buttons">
+              <form action="/edit/{{ contact.id }}" method="get" style="display: inline;">
+                <button type="submit" class="icon-button edit-button">✎</button>
+              </form>
+              <form action="/delete/{{ contact.id }}" method="post" style="display: inline;">
+                <button type="submit" class="icon-button delete-button">✖</button>
               </form>
             </span>
           </div>

@@ -108,7 +108,7 @@ def login():
                 session['user_id'] = user.id
                 session['first_name'] = user.first_name
                 session['last_name'] = user.last_name
-                flash(f"{session['first_name']} successfully Logged In", "primary")
+                flash(f"Welcome back, { session['first_name'] }! You have successfully logged in", "primary")
                 return redirect(url_for('contacts'))
             elif user:
                 flash("Password is incorrect", "danger")
@@ -123,7 +123,7 @@ def login():
 @login_required
 def logout():
     session.pop('user_id', None)
-    flash(f"{session['first_name']} successfully Logged out", "primary")
+    flash(f"Goodbye, { session['first_name'] }! You have been logged out safely", "primary")
     return redirect(url_for('login'))
 
 @app.route("/contacts")
@@ -186,22 +186,52 @@ def add_contact():
     flash("New contact added", "info")
     return redirect("/contacts")
 
+@app.route("/edit/<int:contact_id>", methods=["GET"])
+@login_required
+def edit_contact(contact_id):
+    with app.app_context():
+        contact = db.session.get(Contact, contact_id)
+        if contact and contact.created_by_user_id == session['user_id']:
+            return render_template("edit-contact.html", contact=contact)
+        else:
+            flash("Contact not found", "danger")
+            return redirect(url_for('contacts'))
+        
+@app.route("/edit/<int:contact_id>", methods=["POST"])
+@login_required
+def update_contact(contact_id):
+    with app.app_context():
+        contact = db.session.get(Contact, contact_id)
+        if contact and contact.created_by_user_id == session['user_id']:
+            contact.first_name = request.form.get("first_name")
+            contact.last_name = request.form.get("last_name")
+            contact.address = request.form.get("address")
+            contact.company = request.form.get("company")
+            contact.email = request.form.get("email")
+            contact.phone_number = request.form.get("phone_number")
+            db.session.commit()
+            flash(f"Contact Edited", "info")
+            return redirect(url_for('contacts'))
+        else:
+            flash("Contact not found")
+            return redirect(url_for('contacts'))
+
+
 @app.route("/delete/<int:contact_id>", methods=["POST"])
 @login_required
 def delete_contact_mvc(contact_id):
     with app.app_context():
         contact = db.session.get(Contact, contact_id)
         if contact and contact.created_by_user_id == session['user_id']:
-            flash
             db.session.delete(contact)
             db.session.commit()
-        flash("Contact deleted")
+        flash("Contact Deleted")
         return redirect("/contacts")
 
 # REST API Routes
 
 @app.route("/api/contacts", methods=["GET"])
-def get_contacts():
+def get_contacts_api():
     with app.app_context():
         contacts = db.session.execute(db.select(Contact)).scalars().all()
         if contacts:
@@ -210,7 +240,7 @@ def get_contacts():
             return jsonify({"message": "No contacts available"}), 404
 
 @app.route("/api/contacts/<int:contact_id>", methods=["GET"])
-def get_contact(contact_id):
+def get_contact_api(contact_id):
     with app.app_context():
         contact = db.session.get(Contact, contact_id)
         if contact:
@@ -219,7 +249,7 @@ def get_contact(contact_id):
             return jsonify({"message": "Contact not found"}), 404
 
 @app.route("/api/contacts", methods=["POST"])
-def create_contact():
+def create_contact_api():
     data = request.get_json()
     if not data or "name" not in data or "email" not in data or "phone" not in data:
         return jsonify({"message": "Invalid data"}), 400
@@ -230,7 +260,7 @@ def create_contact():
         return jsonify({"id": new_contact.id, "name": new_contact.name, "email": new_contact.email, "phone": new_contact.phone}), 201
 
 @app.route("/api/contacts/<int:contact_id>", methods=["PUT"])
-def update_contact(contact_id):
+def update_contact_api(contact_id):
     with app.app_context():
         contact = db.session.get(Contact, contact_id)
         if not contact:
@@ -246,7 +276,7 @@ def update_contact(contact_id):
         return jsonify({"id": contact.id, "name": contact.name, "email": contact.email, "phone": contact.phone})
 
 @app.route("/api/contacts/<int:contact_id>", methods=["DELETE"])
-def delete_contact(contact_id):
+def delete_contact_api(contact_id):
     with app.app_context():
         contact = db.session.get(Contact, contact_id)
         if contact:

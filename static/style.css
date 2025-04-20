@@ -535,23 +535,6 @@ p {
     box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.4);
 }
 
-.delete-button {
-    background-color: #e60000;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 4px 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: all 0.5s ease;
-}
-
-.delete-button:hover {
-    opacity: 0.8;
-    transform: scale(1.2);
-}
-
-
 /******************Alerts***************************/
 
 
@@ -618,4 +601,35 @@ p {
 
 .btn-close-danger {
     color: #842029;
+}
+
+/********************Edit Button****************/
+
+.action-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.icon-button {
+    /* background-color: transparent; */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.5s ease;
+}
+
+.edit-button {
+    background-color: #007bff;
+}
+
+.delete-button {
+    background-color: #e60000;
+}
+
+.icon-button:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
 }
