@@ -7,6 +7,7 @@ This project is a REST API and MVC application built using Flask. It provides a 
 ## Features
 - User registration and login
 - Add, edit, search and delete contacts
+- Notifications while performing an action
 - Responsive design with a user-friendly interface
 - RESTful API for managing contacts
 
