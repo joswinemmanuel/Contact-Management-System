@@ -225,6 +225,8 @@ def add_contact():
         error = 'Company must not be empty'
     elif not email:
         error = 'Email must not be empty'
+    elif '@' not in email or '.' not in email:
+        error = 'Invalid email format'
     elif not phone_number:
         error = 'Phone number must not be empty'
     if not error:
@@ -281,6 +283,8 @@ def update_contact(contact_id):
             error = 'Company must not be empty'
         elif not email:
             error = 'Email must not be empty'
+        elif '@' not in email or '.' not in email:
+            error = 'Invalid email format'
         elif not phone_number:
             error = 'Phone number must not be empty'
         
