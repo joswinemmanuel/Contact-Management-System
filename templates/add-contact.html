@@ -26,30 +26,38 @@
 
       <div class="add-contact">
         <h2>Add New Contact</h2>
+
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+          <strong>Oops! {{ error }}</strong>
+          <button type="button" class="btn-close btn-close-danger" aria-label="Close">✖</button>
+        </div>
+        {% endif %}
+
         <form action="/add" method="post" class="contact-form">
-          <div class="form-group">
+          <div class="form-group" style="margin-top: 20px;">
             <label for="first_name">First Name:</label>
-            <input type="text" id="first_name" name="first_name" placeholder="Enter First Name" required>
+            <input type="text" id="first_name" name="first_name" placeholder="Enter First Name">
           </div>
           <div class="form-group">
             <label for="last_name">Last Name:</label>
-            <input type="text" id="last_name" name="last_name" placeholder="Enter Last Name" required>
+            <input type="text" id="last_name" name="last_name" placeholder="Enter Last Name">
           </div>
           <div class="form-group">
             <label for="address">Address:</label>
-            <textarea id="address" name="address" placeholder="Enter Address" required></textarea>
+            <textarea id="address" name="address" placeholder="Enter Address"></textarea>
           </div>
           <div class="form-group">
             <label for="company">Company:</label>
-            <input type="text" id="company" name="company" placeholder="Enter Company" required>
+            <input type="text" id="company" name="company" placeholder="Enter Company">
           </div>
           <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Enter Email" required />
+            <input type="text" id="email" name="email" placeholder="Enter Email" />
           </div>
           <div class="form-group">
             <label for="phone">Phone Number:</label>
-            <input type="text" id="phone_number" name="phone_number" placeholder="Enter Phone Number" required>
+            <input type="text" id="phone_number" name="phone_number" placeholder="Enter Phone Number">
           </div>
           <button type="submit" class="button primary">Add Contact</button>
         </form>
@@ -57,6 +65,9 @@
       <a href="/contacts" class="link-button">See Contact List</a>
     </div>
   </div>
+
+  <script src="{{ url_for('static', filename='alertButton.js') }}"></script>
+
 </body>
 
 </html>

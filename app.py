@@ -39,6 +39,7 @@ def landing():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    error = None
     if request.method == 'POST':
         username = request.form['username']
         first_name = request.form.get('first_name')
@@ -125,24 +126,33 @@ def test():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    error = None
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
 
-        with app.app_context():
-            user = User.query.filter_by(username=username).first()
-            if user and user.check_password(password):
-                session['user_id'] = user.id
-                session['first_name'] = user.first_name
-                session['last_name'] = user.last_name
-                flash(f"Welcome, { session['first_name'] }! You have successfully logged in", "primary")
-                return redirect(url_for('contacts'))
-            elif user:
-                flash("Password is incorrect", "danger")
-                return render_template('login.html', error='Invalid password')
-            else:
-                flash(f"Username doesn't exist", "danger")
-                return render_template('login.html', error='Invalid username')
+        if not username:
+            error = "Username must not be empty"
+        elif not password:
+            error = "Password must not be empty"
+
+        if not error:
+            with app.app_context():
+                user = User.query.filter_by(username=username).first()
+                if user and user.check_password(password):
+                    session['user_id'] = user.id
+                    session['first_name'] = user.first_name
+                    session['last_name'] = user.last_name
+                    flash(f"Welcome, { session['first_name'] }! You have successfully logged in", "primary")
+                    return redirect(url_for('contacts'))
+                elif user:
+                    flash("Password is incorrect", "danger")
+                    return render_template('login.html', error='Invalid password')
+                else:
+                    flash(f"Username doesn't exist", "danger")
+                    return render_template('login.html', error='Invalid username')
+        else:
+            return render_template('login.html', error=error)
 
     return render_template('login.html')
 
@@ -195,6 +205,8 @@ def new_contact():
 @app.route("/add", methods=["POST"])
 @login_required
 def add_contact():
+    error = None
+
     first_name = request.form.get('first_name')
     last_name = request.form.get('last_name')
     address = request.form.get('address')
@@ -202,20 +214,36 @@ def add_contact():
     email = request.form['email']
     phone_number = request.form['phone_number']
     created_by_user_id = session['user_id']
-    new_contact = Contact(
-        first_name=first_name,
-        last_name=last_name,
-        address=address,
-        company=company,
-        email=email,
-        phone_number=phone_number,
-        created_by_user_id=created_by_user_id
-    )
-    with app.app_context():
-        db.session.add(new_contact)
-        db.session.commit()
-    flash("New contact added", "info")
-    return redirect("/contacts")
+
+    if not first_name:
+        error = 'First name must not be empty'
+    elif not last_name:
+        error = 'Last name must not be empty'
+    elif not address:
+        error = 'Address must not be empty'
+    elif not company:
+        error = 'Company must not be empty'
+    elif not email:
+        error = 'Email must not be empty'
+    elif not phone_number:
+        error = 'Phone number must not be empty'
+    if not error:
+        new_contact = Contact(
+            first_name=first_name,
+            last_name=last_name,
+            address=address,
+            company=company,
+            email=email,
+            phone_number=phone_number,
+            created_by_user_id=created_by_user_id
+        )
+        with app.app_context():
+            db.session.add(new_contact)
+            db.session.commit()
+        flash("New contact added", "info")
+        return redirect("/contacts")
+    else:
+        return render_template("add-contact.html", error=error)
 
 @app.route("/edit/<int:contact_id>", methods=["GET"])
 @login_required
