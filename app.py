@@ -7,7 +7,7 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SECRET_KEY'] = 'secret_key'
 init_db(app)
 app.config['UPLOAD_FOLDER'] = 'static/profile_pictures'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}

@@ -52,7 +52,6 @@ body {
     padding: 40px;
     text-align: center;
     flex-grow: 1;
-    /* Allow main content to take up remaining vertical space */
     display: flex;
     flex-direction: column;
     justify-content: center;
