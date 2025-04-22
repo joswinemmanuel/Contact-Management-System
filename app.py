@@ -52,34 +52,61 @@ def register():
         address = request.form.get('address')
         profile_picture = request.files.get('profile_picture')
             
-        with app.app_context():
-            if User.query.filter_by(username=username).first():
-                return render_template('register.html', error='Username already exists')
-            if User.query.filter_by(email=email).first():
-                return render_template('register.html', error='Email address already exists')
-            if password != confirm_password:
-                return render_template('register.html', error='Passwords do not match')
+        if not username:
+            error = 'Username must not be empty'
+        elif not first_name:
+            error = 'First name must not be empty'
+        elif not last_name:
+            error = 'Last name must not be empty'
+        elif not email:
+            error = 'Email address must not be empty'
+        elif '@' not in email or '.' not in email:
+            error = 'Invalid email format'
+        elif not password:
+            error = 'Password must not be empty'
+        elif len(password) < 6:
+            error = 'Password must be at least 6 characters long'
+        elif password != confirm_password:
+            error = 'Passwords do not match'
+        elif not date_of_birth:
+            error = 'Date must not be empty'
+        elif not gender:
+            error = 'Gender must not be empty'
+        elif not phone_number:
+            error = 'Phone number must not be empty'
+        elif not address:
+            error = 'Address must not be empty'
+        elif not profile_picture:
+            error = 'Profile picture must be uploaded'
+        
+        if not error:
+            with app.app_context():
+                if User.query.filter_by(username=username).first():
+                    return render_template('register.html', error_msg='Username already exists')
+                if User.query.filter_by(email=email).first():
+                    return render_template('register.html', error_msg='Email address already exists')
 
-            new_user = User(
-                username=username,
-                first_name=first_name,
-                last_name=last_name,
-                email=email,
-                date_of_birth=datetime.strptime(date_of_birth, '%Y-%m-%d').date() if date_of_birth else None,
-                gender=gender,
-                phone_number=phone_number,
-                address=address
-            )
-            new_user.set_password(password)
-            if profile_picture and allowed_file(profile_picture.filename):
-                filename = secure_filename(profile_picture.filename)
-                profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                new_user.profile_picture = filename
-            db.session.add(new_user)
-            db.session.commit()
-            flash(f"Welcome { session['first_name'] }! You have successfully registered", "primary")
-            return redirect(url_for('login'))
-
+                new_user = User(
+                    username=username,
+                    first_name=first_name,
+                    last_name=last_name,
+                    email=email,
+                    date_of_birth=datetime.strptime(date_of_birth, '%Y-%m-%d').date() if date_of_birth else None,
+                    gender=gender,
+                    phone_number=phone_number,
+                    address=address
+                )
+                new_user.set_password(password)
+                if profile_picture and allowed_file(profile_picture.filename):
+                    filename = secure_filename(profile_picture.filename)
+                    profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    new_user.profile_picture = filename
+                db.session.add(new_user)
+                db.session.commit()
+                flash(f"Welcome { session['first_name'] }! You have successfully registered", "primary")
+                return redirect(url_for('login'))
+        else:
+            return render_template('register.html', error=error)
     return render_template('register.html')
 
 

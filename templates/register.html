@@ -40,37 +40,37 @@
             <form method="POST" action="{{ url_for('register') }}" class="auth-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" placeholder="Enter Username" required>
+                    <input type="text" id="username" name="username" placeholder="Enter Username">
                 </div>
                 <div class="form-group">
                     <label for="first_name">First Name:</label>
-                    <input type="text" id="first_name" name="first_name" placeholder="Enter First Name" required>
+                    <input type="text" id="first_name" name="first_name" placeholder="Enter First Name">
                 </div>
                 <div class="form-group">
                     <label for="last_name">Last Name:</label>
-                    <input type="text" id="last_name" name="last_name" placeholder="Enter Last Name" required>
+                    <input type="text" id="last_name" name="last_name" placeholder="Enter Last Name">
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Enter Email" required>
+                    <input type="text" id="email" name="email" placeholder="Enter Email">
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                    <input type="password" id="password" name="password" placeholder="Enter Password">
                 </div>
                 <div class="form-group">
                     <label for="confirm_password">Confirm Password:</label>
                     <input type="password" id="confirm_password" name="confirm_password"
-                        placeholder="Enter Same Password" required>
+                        placeholder="Enter Same Password">
                 </div>
                 <div class="form-group">
                     <label for="date_of_birth">Date of Birth:</label>
                     <input type="date" id="date_of_birth" name="date_of_birth" style="color:#333; opacity: 0.8;"
-                        placeholder="DD-MM-YYYY" required>
+                        placeholder="DD-MM-YYYY">
                 </div>
                 <div class="form-group">
                     <label for="gender">Gender:</label>
-                    <select id="gender" name="gender" style="color:#333; opacity: 0.8;" required>
+                    <select id="gender" name="gender" style="color:#333; opacity: 0.8;">
                         <option value="">Select Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -79,18 +79,18 @@
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone Number:</label>
-                    <input type="text" id="phone_number" name="phone_number" placeholder="Enter Phone Number" required>
+                    <input type="text" id="phone_number" name="phone_number" placeholder="Enter Phone Number">
                 </div>
                 <div class="form-group">
                     <label for="address">Address:</label>
-                    <textarea id="address" name="address" placeholder="Enter Address" required></textarea>
+                    <textarea id="address" name="address" placeholder="Enter Address"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="profile_picture" style="margin-bottom: 10px;">Profile Picture:</label>
                     <label for="profile_picture" class="custom-file-upload">
                         Upload Image
                     </label>
-                    <input type="file" id="profile_picture" name="profile_picture" required>
+                    <input type="file" id="profile_picture" name="profile_picture">
                     <p id="file-name" style="text-align:left; margin-top:5px; margin-bottom:5px">No file chosen</p>
                 </div>
                 <button type="submit" class="button primary">Register</button>
