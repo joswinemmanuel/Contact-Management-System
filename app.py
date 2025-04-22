@@ -259,21 +259,48 @@ def edit_contact(contact_id):
 @app.route("/edit/<int:contact_id>", methods=["POST"])
 @login_required
 def update_contact(contact_id):
+    
     with app.app_context():
         contact = db.session.get(Contact, contact_id)
-        if contact and contact.created_by_user_id == session['user_id']:
-            contact.first_name = request.form.get("first_name")
-            contact.last_name = request.form.get("last_name")
-            contact.address = request.form.get("address")
-            contact.company = request.form.get("company")
-            contact.email = request.form.get("email")
-            contact.phone_number = request.form.get("phone_number")
-            db.session.commit()
-            flash(f"Contact Edited", "info")
-            return redirect(url_for('contacts'))
+        error = None
+
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        address = request.form.get('address')
+        company = request.form.get('company')
+        email = request.form['email']
+        phone_number = request.form['phone_number']
+
+        if not first_name:
+            error = 'First name must not be empty'
+        elif not last_name:
+            error = 'Last name must not be empty'
+        elif not address:
+            error = 'Address must not be empty'
+        elif not company:
+            error = 'Company must not be empty'
+        elif not email:
+            error = 'Email must not be empty'
+        elif not phone_number:
+            error = 'Phone number must not be empty'
+        
+        if not error: 
+            if contact and contact.created_by_user_id == session['user_id']:
+                contact.first_name = first_name
+                contact.last_name = last_name
+                contact.address = address
+                contact.company = company
+                contact.email = email
+                contact.phone_number = phone_number
+                db.session.commit()
+                flash(f"Contact Edited", "info")
+                return redirect(url_for('contacts'))
+            else:
+                flash("Contact not found")
+                return redirect(url_for('contacts'))
         else:
-            flash("Contact not found")
-            return redirect(url_for('contacts'))
+            print(error)
+            return render_template("edit-contact.html", error=error, contact=contact)
 
 
 @app.route("/delete/<int:contact_id>", methods=["POST"])
