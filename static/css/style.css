@@ -388,7 +388,7 @@ p {
 }
 
 .footer {
-    background-image: url(images/footer-bg.png);
+    background-image: url(../images/footer-bg.png);
     background-position: center top;
     background-repeat: no-repeat;
     background-size: cover;
@@ -720,7 +720,8 @@ p {
 
 .profile-icon {
     cursor: pointer;
-    padding: 8px; /* Adjust padding as needed */
+    padding: 8px;
+    /* Adjust padding as needed */
 }
 
 .dropdown-content {
@@ -728,9 +729,10 @@ p {
     position: absolute;
     background-color: #f9f9f9;
     min-width: 120px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    right: 0; /* Align to the right */
+    right: 0;
+    /* Align to the right */
 }
 
 .dropdown-content a {
@@ -740,7 +742,9 @@ p {
     display: block;
 }
 
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
 
 .profile-dropdown:hover .dropdown-content {
     display: block;

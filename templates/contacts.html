@@ -5,13 +5,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contacts</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght@400;700">
 </head>
 
 <body>
   <div class="header" style="margin-bottom: 20px;">
-    <a href="{{ url_for('landing') }}" Register><span class="material-symbols-rounded" style="font-size: 30px;">
+    <a href="{{ url_for('landing') }}" Register><span class="material-symbols-rounded">
         home
       </span></a>
     <!-- <div class="auth-buttons">
@@ -19,7 +19,7 @@
     </div> -->
     <div class="profile-dropdown">
       <div class="profile-icon">
-        <span class="material-symbols-rounded" style="font-size: 30px;">
+        <span class="material-symbols-rounded">
           person
         </span>
         <!-- <img src="{{ url_for('static', filename='profile_pictures/Lastest_pic_1.jpg') }}" alt="Profile Picture"
@@ -148,9 +148,9 @@
     </div>
   </div>
 
-  <script src="{{ url_for('static', filename='deleteButton.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/deleteButton.js') }}"></script>
 
-  <script src="{{ url_for('static', filename='alertButton.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/alertButton.js') }}"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
