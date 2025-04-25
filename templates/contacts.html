@@ -62,7 +62,9 @@
       <div class="search-bar">
         <form action="{{ url_for('search_contacts') }}" method="get" class="form-style">
           <input type="text" name="query" placeholder="Search contacts...">
-          <button type="submit">Search</button>
+          <button type="submit" class="search-button"><span class="material-symbols-rounded" style="font-size: 32px;">
+              search
+            </span></button>
         </form>
       </div>
 
