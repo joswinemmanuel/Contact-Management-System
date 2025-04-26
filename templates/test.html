@@ -6,13 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=home" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght@400;700">
 </head>
 
 <body>
     <div class="header">
-        <a href="{{ url_for('landing') }}" Register><span class="material-symbols-outlined">
+        <a href="{{ url_for('landing') }}" Register><span class="material-symbols-rounded">
                 home
             </span></a>
         <div class="auth-buttons">
@@ -28,7 +27,7 @@
             <p class="error">{{ error }}</p>
             {% endif %}
             <form method="POST" action="{{ url_for('test') }}" class="auth-form" enctype="multipart/form-data">
-                
+
                 <div class="form-group">
                     <label for="profile_picture" style="margin-bottom: 10px;">Profile Picture:</label>
                     <label for="profile_picture" class="custom-file-upload">

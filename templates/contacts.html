@@ -154,25 +154,6 @@
 
   <script src="{{ url_for('static', filename='js/alertButton.js') }}"></script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const profileIcon = document.querySelector('.profile-icon');
-      const dropdownContent = document.querySelector('.dropdown-content');
-
-      if (profileIcon && dropdownContent) {
-        profileIcon.addEventListener('click', function (event) {
-          event.stopPropagation(); // Prevent document click from immediately closing
-          dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-        });
-
-        document.addEventListener('click', function (event) {
-          if (!profileIcon.contains(event.target) && !dropdownContent.contains(event.target)) {
-            dropdownContent.style.display = 'none';
-          }
-        });
-      }
-    });
-  </script>
 
 </body>
 
