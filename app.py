@@ -174,6 +174,30 @@ def contacts():
         ).scalars().all()
     return render_template("contacts.html", contacts=contacts)
 
+@app.route("/profile")
+@login_required
+def profile():
+    user_id = session['user_id']
+    with app.app_context():
+        user = db.session.get(User, user_id)
+        if user:
+            return render_template('profile.html', user=user)
+        else:
+            flash('User profile not found.', 'danger')
+            return redirect(url_for('contacts'))
+        
+@app.route('/edit-profile', methods=['GET'])
+@login_required
+def edit_profile():
+    user_id = session['user_id']
+    with app.app_context():
+        user = db.session.get(User, user_id)
+        if user:
+            return render_template('edit-profile.html', user=user)
+        else:
+            flash('User profile not found.', 'danger')
+            return redirect(url_for('profile'))
+
 @app.route("/search", methods=["GET"])
 @login_required
 def search_contacts():

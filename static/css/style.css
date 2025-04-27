@@ -746,7 +746,7 @@ p {
     /* text-align: center; */
     text-decoration: none;
     display: block;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
 }
 
 .dropdown-content a:first-child {
@@ -779,4 +779,35 @@ p {
 .search-bar .search-button:hover {
     transform: scale(1.2);
     opacity: 0.8;
+}
+
+/************ Profile *************/
+
+.profile-picture-container {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+
+.profile-picture-container:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+}
+
+.profile-picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.default-profile-icon {
+    font-size: 60px;
+    color: #007bff;
 }
