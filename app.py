@@ -198,6 +198,61 @@ def edit_profile():
             flash('User profile not found.', 'danger')
             return redirect(url_for('profile'))
 
+@app.route('/edit-profile', methods=['POST'])
+@login_required
+def update_profile():
+    user_id = session['user_id']
+    with app.app_context():
+        user = db.session.get(User, user_id)
+        error = None
+
+        username = request.form['username']
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        email = request.form['email']
+        date_of_birth = request.form.get('date_of_birth')
+        gender = request.form.get('gender')
+        phone_number = request.form['phone_number']
+        address = request.form.get('address')
+        # profile_picture = request.files.get('profile_picture')
+
+        if not username:
+            error = 'Username must not be empty'
+        elif not first_name:
+            error = 'First name must not be empty'
+        elif not last_name:
+            error = 'Last name must not be empty'
+        elif not email:
+            error = 'Email address must not be empty'
+        elif '@' not in email or '.' not in email:
+            error = 'Invalid email format'
+        elif not date_of_birth:
+            error = 'Date must not be empty'
+        elif not gender:
+            error = 'Gender must not be empty'
+        elif not phone_number:
+            error = 'Phone number must not be empty'
+        elif not address:
+            error = 'Address must not be empty'
+        # elif not profile_picture:
+        #     error = 'Profile picture must be uploaded'
+
+        if not error:
+            user.username = username
+            user.first_name = first_name
+            user.last_name = last_name
+            user.email = email
+            user.date_of_birth = datetime.strptime(date_of_birth, '%Y-%m-%d').date() if date_of_birth else None
+            user.gender = gender
+            user.phone_number = phone_number
+            user.address = address
+            # user.profile_picture = request.files.get('profile_picture'
+            db.session.commit()
+            flash('Profile updated successfully!', 'info')
+            return redirect(url_for('profile'))
+        else:
+            return render_template("edit-profile.html", error=error, user=user)
+
 @app.route("/search", methods=["GET"])
 @login_required
 def search_contacts():
@@ -327,7 +382,6 @@ def update_contact(contact_id):
                 flash("Contact not found")
                 return redirect(url_for('contacts'))
         else:
-            print(error)
             return render_template("edit-contact.html", error=error, contact=contact)
 
 

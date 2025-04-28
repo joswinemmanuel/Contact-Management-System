@@ -33,7 +33,20 @@
         <div class="container extra-margin-top extra-margin-bottom">
             <h1>Profile</h1>
 
-            <div class="add-contact">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            {% if category=="info" %}
+            <div class="alert alert-primary" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close btn-close-primary" aria-label="Close">✖</button>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <div class="add-contact" style="margin-top: 15px;">
 
                 <div class="profile-picture-container">
                     {% if user.profile_picture %}
@@ -51,7 +64,7 @@
                 <p><strong>Last Name:</strong> {{ user.last_name }}</p>
                 <p><strong>Email:</strong> {{ user.email }}</p>
                 <p><strong>Date of Birth:</strong> {{ user.date_of_birth.strftime('%d-%m-%Y') }}</p>
-                <p><strong>Gender:</strong> {{ user.gender }}</p>
+                <p><strong>Gender:</strong> {{ user.gender.title() }}</p>
                 <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
                 <p><strong>Address:</strong> {{ user.address }}</p>
 

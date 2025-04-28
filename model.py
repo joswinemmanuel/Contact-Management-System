@@ -28,7 +28,6 @@ class User(db.Model):
     date_of_birth = db.Column(db.Date)
     gender = db.Column(db.String(20))
     phone_number = db.Column(db.Text)
-    # phone = db.Column(db.String(20), nullable=False)
     address = db.Column(db.Text)
     profile_picture = db.Column(db.String(200))
 

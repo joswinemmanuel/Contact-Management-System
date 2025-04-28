@@ -1,3 +1,97 @@
-<h1> Edit Profile</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-<h2>{{user.username}}</h2>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Contacts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght@400;700">
+</head>
+
+<body>
+    <div class="header">
+        <a href="{{ url_for('landing') }}" Register><span class="material-symbols-rounded">
+                home
+            </span></a>
+        <div class="profile-dropdown">
+            <div class="profile-icon">
+                <span class="material-symbols-rounded">
+                    person
+                </span>
+                <!-- <img src="{{ url_for('static', filename='profile_pictures/Lastest_pic_1.jpg') }}" alt="Profile Picture"
+                    style="width: 30px; height: 30px; border-radius: 50%;"> -->
+            </div>
+            <div class="dropdown-content">
+                <a href="{{ url_for('profile') }}">Profile</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <div class="container extra-margin-top extra-margin-bottom">
+            <h1>Profile</h1>
+
+            <div class="add-contact">
+                <h2>Edit User Information</h2>
+
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Oops! {{ error }}</strong>
+                    <button type="button" class="btn-close btn-close-danger" aria-label="Close">✖</button>
+                </div>
+                {% endif %}
+
+                <form action="/edit-profile" method="post" class="auth-form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" value="{{ user.username }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">First Name:</label>
+                        <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name:</label>
+                        <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" id="email" name="email" value="{{ user.email }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="date_of_birth">Date of Birth:</label>
+                        <input type="date" id="date_of_birth" name="date_of_birth" style="color:#333; opacity: 0.8;"
+                            value="{{ user.date_of_birth }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender:</label>
+                        <select id="gender" name="gender" style="color:#333; opacity: 0.8;">
+                            <option value="">Select Gender</option>
+                            <option value="male" {% if user.gender=='male' %} selected {% endif %}>Male</option>
+                            <option value="female" {% if user.gender=='female' %}selected{% endif %}>Female</option>
+                            <option value="other" {% if user.gender=='other' %}selected{% endif %}>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="text" id="phone_number" name="phone_number" value="{{ user.phone_number }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <textarea id="address" name="address">{{ user.address }}</textarea>
+                    </div>
+
+                    <button type="submit" class="button primary">Update Profie</button>
+
+                    <a href="/profile" class="link-button" style="margin-top: 10px;">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/alertButton.js') }}"></script>
+</body>
+
+</html>
