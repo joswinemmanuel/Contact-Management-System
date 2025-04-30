@@ -82,6 +82,14 @@
                         <label for="address">Address:</label>
                         <textarea id="address" name="address">{{ user.address }}</textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="profile_picture" style="margin-bottom: 10px;">Profile Picture:</label>
+                        <label for="profile_picture" class="custom-file-upload">
+                            Change Image
+                        </label>
+                        <input type="file" id="profile_picture" name="profile_picture">
+                        <p id="file-name" style="text-align:left; margin-top:5px; margin-bottom:5px">{{ user.profile_picture }}</p>
+                    </div>
 
                     <button type="submit" class="button primary">Update Profie</button>
 
@@ -91,6 +99,7 @@
         </div>
     </div>
 
+    <script src="{{ url_for('static', filename='js/profilePic.js') }}"></script>
     <script src="{{ url_for('static', filename='js/alertButton.js') }}"></script>
 </body>
 

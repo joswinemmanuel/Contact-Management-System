@@ -214,7 +214,7 @@ def update_profile():
         gender = request.form.get('gender')
         phone_number = request.form['phone_number']
         address = request.form.get('address')
-        # profile_picture = request.files.get('profile_picture')
+        profile_picture = request.files.get('profile_picture')
 
         if not username:
             error = 'Username must not be empty'
@@ -246,7 +246,10 @@ def update_profile():
             user.gender = gender
             user.phone_number = phone_number
             user.address = address
-            # user.profile_picture = request.files.get('profile_picture'
+            if profile_picture and allowed_file(profile_picture.filename):
+                    filename = secure_filename(profile_picture.filename)
+                    profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    user.profile_picture = filename
             db.session.commit()
             flash('Profile updated successfully!', 'info')
             return redirect(url_for('profile'))
