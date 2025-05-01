@@ -168,13 +168,17 @@
 
         <div class="pagination" style="margin-top: 20px; display: flex; justify-content: center;">
           {% if contacts.has_prev %}
-          <a href="{{ url_for('contacts', page=contacts.prev_num) }}" class="page-link">Previous</a>
+          <a href="{{ url_for('contacts', page=contacts.prev_num) }}" class="page-link">&lt;</a>
+          {% else %}
+          <a href="{{ url_for('contacts', page=contacts.prev_num) }}" class="page-link {% if not contacts.has_prev %}disabled{% endif %}">&lt; </a>
           {% endif %}
 
           <span class="page-number" style="margin: 0 10px;">Page {{ contacts.page }} of {{ contacts.pages }}</span>
 
           {% if contacts.has_next %}
-          <a href="{{ url_for('contacts', page=contacts.next_num) }}" class="page-link">Next</a>
+          <a href="{{ url_for('contacts', page=contacts.next_num) }}" class="page-link">&gt;</a>
+          {% else %}
+          <a href="{{ url_for('contacts', page=contacts.next_num) }}" class="page-link {% if not contacts.has_next %}disabled{% endif %}"> &gt; </a>
           {% endif %}
         </div>
 
