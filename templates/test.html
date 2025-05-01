@@ -22,24 +22,12 @@
 
     <div class="wrap">
         <div class="container extra-margin-top extra-margin-bottom">
-            <h1>Register</h1>
+            <h1>Test Data Added to DB</h1>
             {% if error %}
             <p class="error">{{ error }}</p>
             {% endif %}
             <form method="POST" action="{{ url_for('test') }}" class="auth-form" enctype="multipart/form-data">
 
-                <div class="form-group">
-                    <label for="profile_picture" style="margin-bottom: 10px;">Profile Picture:</label>
-                    <label for="profile_picture" class="custom-file-upload">
-                        Upload Image
-                    </label>
-                    <input type="file" id="profile_picture" name="profile_picture" required>
-                    <p id="file-name" style="text-align:left; margin-top:5px; margin-bottom:5px">No file chosen</p>
-
-                </div>
-                <button type="submit" class="button primary">Register</button>
-                <p>Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
-            </form>
         </div>
     </div>
 

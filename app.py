@@ -6,6 +6,8 @@ from sqlalchemy import or_
 from sqlalchemy.orm import Query
 from datetime import datetime
 from werkzeug.utils import secure_filename
+from random import choice, randint
+from faker import Faker
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
@@ -114,14 +116,18 @@ def register():
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
-    if request.method == 'POST':
-        profile_picture = request.files.get('profile_picture')               
-        print(profile_picture)
-        if profile_picture and allowed_file(profile_picture.filename):
-            print(allowed_file(profile_picture.filename))
-            filename = secure_filename(profile_picture.filename)
-            print(filename)            
-        return redirect(url_for('test'))
+    fake = Faker()
+    with app.app_context():
+        db.session.add(Contact(
+                first_name=fake.first_name(),
+                last_name=fake.last_name(),
+                address=fake.city(),
+                company=choice(["Innovature", "TechNova", "SoftLoop", "CodeWave"]),
+                email=fake.email(),
+                phone_number=str(randint(9000000000, 9999999999)),
+                created_by_user_id=session["user_id"]
+            ))
+        db.session.commit()
     return render_template('test.html')
 
 
@@ -168,7 +174,7 @@ def logout():
 @app.route("/contacts/page/<int:page>")
 @login_required
 def contacts(page):
-    contacts_per_page = 2
+    contacts_per_page = 5
     user_id = session['user_id']
 
     with app.app_context():
@@ -264,7 +270,7 @@ def update_profile():
 @login_required
 def search_contacts(page):
     query = request.args.get("query")
-    contacts_per_page = 2
+    contacts_per_page = 5
     user_id = session['user_id']
 
     if query:
