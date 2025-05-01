@@ -60,8 +60,13 @@
       <a href="/new-contact" class="link-button">Add New Contact</a>
 
       <div class="search-bar">
-        <form action="{{ url_for('search_contacts') }}" method="get" class="form-style">
+        <form action="{{ url_for('search_contacts', page=1) }}" method="get" class="form-style">
+          {% if search_query %}
+          <input type="text" name="query" value="{{ search_query }}">
+          {% else %}
           <input type="text" name="query" placeholder="Search contacts...">
+          {% endif %}
+          <input type="hidden" name="new-search" value="1">
           <button type="submit" class="search-button"><span class="material-symbols-rounded" style="font-size: 32px;">
               search
             </span></button>
@@ -90,7 +95,7 @@
 
       <div class="contact-list">
         <h2>Contact List</h2>
-        {% if contacts %}
+        {% if contacts.items %}
 
         <div class="contact-table">
           <div class="contact-header">
@@ -142,6 +147,38 @@
           </div>
           {% endfor %}
         </div>
+
+        {% if search_query %}
+
+        <div class="pagination" style="margin-top: 20px; display: flex; justify-content: center;">
+          {% if contacts.has_prev %}
+          <a href="{{ url_for('search_contacts', page=contacts.prev_num, query=search_query) }}"
+            class="page-link">Previous</a>
+          {% endif %}
+
+          <span class="page-number" style="margin: 0 10px;">Page {{ contacts.page }} of {{ contacts.pages }}</span>
+
+          {% if contacts.has_next %}
+          <a href="{{ url_for('search_contacts', page=contacts.next_num, query=search_query) }}"
+            class="page-link">Next</a>
+          {% endif %}
+        </div>
+
+        {% else %}
+
+        <div class="pagination" style="margin-top: 20px; display: flex; justify-content: center;">
+          {% if contacts.has_prev %}
+          <a href="{{ url_for('contacts', page=contacts.prev_num) }}" class="page-link">Previous</a>
+          {% endif %}
+
+          <span class="page-number" style="margin: 0 10px;">Page {{ contacts.page }} of {{ contacts.pages }}</span>
+
+          {% if contacts.has_next %}
+          <a href="{{ url_for('contacts', page=contacts.next_num) }}" class="page-link">Next</a>
+          {% endif %}
+        </div>
+
+        {% endif %}
 
         {% else %}
         <p style="width: 1000px;">No contacts available</p>

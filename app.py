@@ -3,6 +3,7 @@ import os
 from model import db, Contact, init_db, User
 from functools import wraps
 from sqlalchemy import or_
+from sqlalchemy.orm import Query
 from datetime import datetime
 from werkzeug.utils import secure_filename
 
@@ -104,7 +105,7 @@ def register():
                     new_user.profile_picture = filename
                 db.session.add(new_user)
                 db.session.commit()
-                flash(f"Welcome { session['first_name'] }! You have successfully registered", "primary")
+                flash(f"Welcome { session['first_name'] }, You have successfully registered", "primary")
                 return redirect(url_for('login'))
         else:
             return render_template('register.html', error=error)
@@ -143,7 +144,7 @@ def login():
                     session['user_id'] = user.id
                     session['first_name'] = user.first_name
                     session['last_name'] = user.last_name
-                    flash(f"Welcome, { session['first_name'] }! You have successfully logged in", "primary")
+                    flash(f"Welcome { session['first_name'] }, You have successfully logged in", "primary")
                     return redirect(url_for('contacts'))
                 elif user:
                     flash("Password is incorrect", "danger")
@@ -160,19 +161,23 @@ def login():
 @login_required
 def logout():
     session.pop('user_id', None)
-    flash(f"Goodbye, { session['first_name'] }! You have been logged out safely", "primary")
+    flash(f"Goodbye { session['first_name'] }, You have been logged out safely", "primary")
     return redirect(url_for('login'))
 
-@app.route("/contacts")
+@app.route("/contacts", defaults={'page': 1})
+@app.route("/contacts/page/<int:page>")
 @login_required
-def contacts():
+def contacts(page):
+    contacts_per_page = 2
+    user_id = session['user_id']
+
     with app.app_context():
-        contacts = db.session.execute(
-            db.select(Contact)
-            .filter_by(created_by_user_id=session['user_id'])
-            .order_by(Contact.first_name, Contact.last_name)
-        ).scalars().all()
-    return render_template("contacts.html", contacts=contacts)
+        query: Query = db.session.query(Contact).filter_by(created_by_user_id=user_id).order_by(Contact.first_name, Contact.last_name)
+        total_contacts = query.count()
+        contacts = query.paginate(page=page, per_page=contacts_per_page, error_out=False)
+
+        return render_template("contacts.html", contacts=contacts, total_contacts=total_contacts, contacts_per_page=contacts_per_page)
+
 
 @app.route("/profile")
 @login_required
@@ -234,8 +239,6 @@ def update_profile():
             error = 'Phone number must not be empty'
         elif not address:
             error = 'Address must not be empty'
-        # elif not profile_picture:
-        #     error = 'Profile picture must be uploaded'
 
         if not error:
             user.username = username
@@ -251,33 +254,45 @@ def update_profile():
                     profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                     user.profile_picture = filename
             db.session.commit()
-            flash('Profile updated successfully!', 'info')
+            flash('Profile Updated', 'info')
             return redirect(url_for('profile'))
         else:
             return render_template("edit-profile.html", error=error, user=user)
 
-@app.route("/search", methods=["GET"])
+@app.route("/search", methods=["GET"], defaults={'page': 1})
+@app.route("/search/page/<int:page>", methods=["GET"])
 @login_required
-def search_contacts():
+def search_contacts(page):
     query = request.args.get("query")
+    contacts_per_page = 2
+    user_id = session['user_id']
+
     if query:
         search_term = f"%{query}%"
         if len(search_term) == 3:
             search_term = search_term[1:]
+
         with app.app_context():
-            results = db.session.execute(db.select(Contact).filter(
-                Contact.created_by_user_id == session['user_id'],
+            search_query: Query = db.session.query(Contact).filter(
+                Contact.created_by_user_id == user_id,
                 or_(
                     Contact.first_name.like(search_term),
                     Contact.email.like(search_term),
                     Contact.phone_number.like(search_term)
                 )
-            )).scalars().all()
-        flash("Search results", "info")
-        return render_template("contacts.html", contacts=results)
+            ).order_by(Contact.first_name, Contact.last_name)
+
+            total_results = search_query.count()
+            results_pagination = search_query.paginate(page=page, per_page=contacts_per_page, error_out=False)
+
+            if request.args.get("new-search"):
+                flash("Search Results", "info")
+
+            return render_template("contacts.html", contacts=results_pagination, total_contacts=total_results, contacts_per_page=contacts_per_page, search_query=query)
     else:
-        flash("All contacts", "info")
+        flash("All Contacts", "info")
         return redirect(url_for('contacts'))
+
 
 @app.route("/new-contact")
 @login_required
