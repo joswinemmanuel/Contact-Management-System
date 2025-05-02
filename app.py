@@ -118,12 +118,13 @@ def register():
 def test():
     fake = Faker()
     with app.app_context():
+        first_name=fake.first_name()
         db.session.add(Contact(
-                first_name=fake.first_name(),
+                first_name=first_name,
                 last_name=fake.last_name(),
                 address=fake.city(),
                 company=choice(["Innovature", "TechNova", "SoftLoop", "CodeWave"]),
-                email=fake.email(),
+                email=first_name.lower()+"@gmail.com",
                 phone_number=str(randint(9000000000, 9999999999)),
                 created_by_user_id=session["user_id"]
             ))
