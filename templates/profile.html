@@ -53,23 +53,12 @@
                     <img src="{{ url_for('static', filename='profile_pictures/' + user.profile_picture) }}"
                         alt="Profile Picture" class="profile-picture">
                     {% else %}
-                    <span class="material-symbols-rounded default-profile-icon">person</span>
+                    <span class="material-symbols-rounded default-profile-icon"
+                        style="font-size: 50px; color:rgb(181, 181, 181)">person</span>
                     {% endif %}
                 </div>
 
-                <!-- <h2>User Information</h2>
-
-                <p><strong>Username:</strong> {{ user.username }}</p>
-                <p><strong>First Name:</strong> {{ user.first_name }}</p>
-                <p><strong>Last Name:</strong> {{ user.last_name }}</p>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Date of Birth:</strong> {{ user.date_of_birth.strftime('%d-%m-%Y') }}</p>
-                <p><strong>Gender:</strong> {{ user.gender.title() }}</p>
-                <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
-                <p><strong>Address:</strong> {{ user.address }}</p> -->
-
                 <h2>User Information</h2>
-
                 <div class="user-info">
                     <div class="info-row">
                         <span class="info-label">Username:</span>
@@ -109,14 +98,33 @@
                 <div class="contact-form" style="margin-top: 20px;">
                     <a href="/edit-profile" class="link-button"
                         style="background-color: #28a745; margin-bottom: 0px;">Edit Profile</a>
+
+                    <button type="button" class="button"
+                        onclick="openDeleteModal('{{ user.id }}', '{{ user.username }}')"
+                        style="background-color: #d30000; margin-top: 10px; margin-bottom: 0px">Delete Account</button>
+                    <div id="deleteModal-{{ user.id }}" class="modal">
+                        <div class="modal-content">
+                            <span class="close-button" onclick="closeDeleteModal('{{ user.id }}')">&times;</span>
+                            <p style="font-size: large; margin-bottom: 30px;">
+                                <strong>Are you sure you want to delete your account?</strong>
+                            </p>
+                            <div class="modal-buttons">
+                                <form action="/delete_account/{{ user.id }}" method="post" style="display:inline;">
+                                    <button type="submit" class="yes-button">Yes, Delete</button>
+                                </form>
+                                <button type="button" class="no-button" onclick="closeDeleteModal('{{ user.id }}')">No,
+                                    Cancel</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
             <a href="/contacts" class="link-button">See Contact List</a>
 
-
-
         </div>
+
+        <script src="{{ url_for('static', filename='js/deleteButton.js') }}"></script>
 
         <script src="{{ url_for('static', filename='js/alertButton.js') }}"></script>
 

@@ -107,7 +107,7 @@ def register():
                     new_user.profile_picture = filename
                 db.session.add(new_user)
                 db.session.commit()
-                flash(f"Welcome { session['first_name'] }, You have successfully registered", "primary")
+                flash(f"You have successfully registered", "primary")
                 return redirect(url_for('login'))
         else:
             return render_template('register.html', error=error)
@@ -197,6 +197,21 @@ def profile():
         else:
             flash('User profile not found.', 'danger')
             return redirect(url_for('contacts'))
+
+@app.route("/delete_account/<int:user_id>", methods=["POST"])
+@login_required
+def delete_account(user_id):
+    if request.method == "POST":
+        with app.app_context():
+            user = db.session.get(User, user_id)
+            if user:
+                Contact.query.filter_by(created_by_user_id=user_id).delete()
+                db.session.delete(user)
+                db.session.commit()
+                session.clear()
+                flash("Your account has been deleted", "delete")
+                return redirect(url_for('login'))
+
         
 @app.route('/edit-profile', methods=['GET'])
 @login_required

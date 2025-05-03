@@ -150,17 +150,23 @@
 
         {% if search_query %}
 
-        <div class="pagination" style="margin-top: 20px; display: flex; justify-content: center;">
+        <div class="pagination" style="margin-top: 30px; margin-bottom:15px; display: flex; justify-content: center;">
           {% if contacts.has_prev %}
           <a href="{{ url_for('search_contacts', page=contacts.prev_num, query=search_query) }}"
-            class="page-link">Previous</a>
+            class="page-link">&lt;</a>
+          {% else %}
+          <a href="{{ url_for('search_contacts', page=contacts.prev_num, query=search_query) }}"
+            class="page-link disabled">&lt;</a>
           {% endif %}
 
           <span class="page-number" style="margin: 0 10px;">Page {{ contacts.page }} of {{ contacts.pages }}</span>
 
           {% if contacts.has_next %}
           <a href="{{ url_for('search_contacts', page=contacts.next_num, query=search_query) }}"
-            class="page-link">Next</a>
+            class="page-link">&gt;</a>
+          {% else %}
+          <a href="{{ url_for('search_contacts', page=contacts.next_num, query=search_query) }}"
+            class="page-link disabled">&gt;</a>
           {% endif %}
         </div>
 
