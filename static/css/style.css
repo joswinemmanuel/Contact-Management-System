@@ -508,13 +508,24 @@ p {
 
 .contact-header,
 .contact-row {
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 1rem;
     padding: 0.8rem;
     align-items: center;
     border-bottom: 1px solid #eee;
+    transition: all 0.5s ease; */
+    display: grid;
+    grid-template-columns: 1.3fr 1.3fr 2.5fr 2fr 2.5fr 1.6fr 1fr;
+    /* Adjust these as needed */
+    gap: 1rem;
+    padding: 0.8rem;
+    align-items: center;
+    border-bottom: 1px solid #eee;
     transition: all 0.5s ease;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .contact-header {
