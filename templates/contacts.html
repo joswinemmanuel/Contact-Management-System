@@ -93,7 +93,7 @@
       </div>
       {% endfor %}
 
-      <div class="contact-list">
+      <div id="contact-list" class="contact-list">
         <h2>Contact List</h2>
         {% if contacts.items %}
 
@@ -152,20 +152,20 @@
 
         <div class="pagination" style="margin-top: 30px; margin-bottom:15px; display: flex; justify-content: center;">
           {% if contacts.has_prev %}
-          <a href="{{ url_for('search_contacts', page=contacts.prev_num, query=search_query) }}"
+          <a href="{{ url_for('search_contacts', page=contacts.prev_num, query=search_query) }}#contact-list"
             class="page-link">&lt;</a>
           {% else %}
-          <a href="{{ url_for('search_contacts', page=contacts.prev_num, query=search_query) }}"
+          <a href="{{ url_for('search_contacts', page=contacts.prev_num, query=search_query) }}#contact-list"
             class="page-link disabled">&lt;</a>
           {% endif %}
 
           <span class="page-number" style="margin: 0 10px;">Page {{ contacts.page }} of {{ contacts.pages }}</span>
 
           {% if contacts.has_next %}
-          <a href="{{ url_for('search_contacts', page=contacts.next_num, query=search_query) }}"
+          <a href="{{ url_for('search_contacts', page=contacts.next_num, query=search_query) }}#contact-list"
             class="page-link">&gt;</a>
           {% else %}
-          <a href="{{ url_for('search_contacts', page=contacts.next_num, query=search_query) }}"
+          <a href="{{ url_for('search_contacts', page=contacts.next_num, query=search_query) }}#contact-list"
             class="page-link disabled">&gt;</a>
           {% endif %}
         </div>
@@ -174,18 +174,18 @@
 
         <div class="pagination" style="margin-top: 30px; margin-bottom:15px; display: flex; justify-content: center;">
           {% if contacts.has_prev %}
-          <a href="{{ url_for('contacts', page=contacts.prev_num) }}" class="page-link">&lt;</a>
+          <a href="{{ url_for('contacts', page=contacts.prev_num) }}#contact-list" class="page-link">&lt;</a>
           {% else %}
-          <a href="{{ url_for('contacts', page=contacts.prev_num) }}"
+          <a href="{{ url_for('contacts', page=contacts.prev_num) }}#contact-list"
             class="page-link {% if not contacts.has_prev %}disabled{% endif %}">&lt; </a>
           {% endif %}
 
           <span class="page-number" style="margin: 0 10px;">Page {{ contacts.page }} of {{ contacts.pages }}</span>
 
           {% if contacts.has_next %}
-          <a href="{{ url_for('contacts', page=contacts.next_num) }}" class="page-link">&gt;</a>
+          <a href="{{ url_for('contacts', page=contacts.next_num) }}#contact-list" class="page-link">&gt;</a>
           {% else %}
-          <a href="{{ url_for('contacts', page=contacts.next_num) }}"
+          <a href="{{ url_for('contacts', page=contacts.next_num) }}#contact-list"
             class="page-link {% if not contacts.has_next %}disabled{% endif %}">&gt; </a>
           {% endif %}
         </div>
