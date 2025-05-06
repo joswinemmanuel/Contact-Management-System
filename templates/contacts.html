@@ -117,6 +117,7 @@
             <span>{{ contact.phone_number }}</span>
 
             <span class="action-buttons">
+
               <form action="/edit/{{ contact.id }}" method="get" style="display: inline;">
                 <button type="submit" class="icon-button edit-button">✎</button>
               </form>
@@ -125,7 +126,45 @@
                 onclick="openDeleteModal('{{ contact.id }}', '{{ contact.first_name }} {{ contact.last_name }}')">
                 ✖
               </button>
+
+              <button type="submit" class="icon-button view-button"
+                onclick="openDetailsModal('{{ contact.id }}')">👁</button>
+
             </span>
+
+            <div id="detailsModal-{{ contact.id }}" class="modal">
+              <div class="modal-content" style="width: 29%;">
+                <span class="close-button" onclick="closeDetailsModal('{{ contact.id }}')">&times;</span>
+                <h3 style="font-size:30px; margin-top:4px">Contact Details</h3>
+                <div class="user-info view">
+                  <div class="info-row">
+                    <span class="info-label">First Name:</span>
+                    <span class="info-value">{{ contact.first_name }}</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Last Name:</span>
+                    <span class="info-value">{{ contact.last_name }}</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Address:</span>
+                    <span class="info-value">{{ contact.address }}</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Company:</span>
+                    <span class="info-value">{{ contact.company }}</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Email:</span>
+                    <span class="info-value">{{ contact.email }}</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Phone:</span>
+                    <span class="info-value">{{ contact.phone_number }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
             <div id="deleteModal-{{ contact.id }}" class="modal">
               <div class="modal-content">
@@ -198,6 +237,8 @@
       </div>
     </div>
   </div>
+
+  <script src="{{ url_for('static', filename='js/viewButton.js') }}"></script>
 
   <script src="{{ url_for('static', filename='js/deleteButton.js') }}"></script>
 

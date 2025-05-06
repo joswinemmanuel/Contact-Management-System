@@ -640,6 +640,10 @@ p {
     background-color: #e60000;
 }
 
+.view-button {
+    background-color: #28a745;
+}
+
 .icon-button:hover {
     transform: scale(1.2);
     opacity: 0.8;
@@ -659,9 +663,13 @@ p {
     transition: all 0.5 ease;
 }
 
+.modal::-webkit-scrollbar {
+    display: none;
+}
+
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 12% auto;
     padding: 30px;
     padding-top: 15px;
     width: 80%;
@@ -881,4 +889,11 @@ p {
 .page-number {
     font-size: 16px;
     font-weight: 600;
+}
+
+/****************View Model*******************/
+
+.user-info.view {
+    font-size: 19px;
+    padding-top: 10px;
 }
