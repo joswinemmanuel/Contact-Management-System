@@ -2,22 +2,22 @@
 
 
 ## Description
-This project is a REST API and MVC application built using Flask. It provides a structured way to manage contacts, allowing users to add, view, and manage their contact information through a web interface.
+This project is a Contact Management System built using Flask. It provides a structured way to manage contacts, allowing users to add, view, and manage their contact information and account through a web interface.
 
 ## Features
 - User registration and login
-- Add, edit, search and delete contacts
+- Add, edit, search, view and delete contacts
 - Notifications while performing an action
+- Edit or delete user account
 - Responsive design with a user-friendly interface
-- RESTful API for managing contacts
 
 ## Installation
 To set up this project locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Innovatureai/INV_RR_25_Joswin-Emmanuel.git
-   cd INV_RR_25_Joswin-Emmanuel
+   git clone https://github.com/joswinemmanuel/Contact-Management-System.git
+   cd Contact-Management-System
    ```
 
 2. Install the required packages:
