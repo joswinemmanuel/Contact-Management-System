@@ -2,7 +2,9 @@
 
 
 ## Description
-This project is a Contact Management System built using Flask. It provides a structured way to manage contacts, allowing users to add, view, and manage their contact information and account through a web interface.
+This project is a Contact Management System built using Flask. It provides a structured way to manage contacts, allowing users to add, view, delete and search their contact information and account along with pagination through a web interface.
+
+
 
 ## Features
 - User registration and login
